@@ -7,13 +7,18 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios
+        .get(`${import.meta.env.VITE_API_BASE_URL}/user`)
+        .then((res) => setUser(res.data));
     } else {
       delete axios.defaults.headers.common['Authorization'];
+      setUser(null);
     }
   }, [token]);
 
@@ -27,6 +32,7 @@ export const AuthProvider = ({ children }) => {
       const jwt = response.data.token;
       localStorage.setItem('token', jwt);
       setToken(jwt);
+      setUser(response.data.user);
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
@@ -43,7 +49,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, loading, isAuthenticated: !!token }}>
+    <AuthContext.Provider value={{ token, user, login, logout, loading, isAuthenticated: !!token }}>
       {children}
     </AuthContext.Provider>
   );
