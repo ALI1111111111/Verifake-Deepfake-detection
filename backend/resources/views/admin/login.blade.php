@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Admin Login</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-50">

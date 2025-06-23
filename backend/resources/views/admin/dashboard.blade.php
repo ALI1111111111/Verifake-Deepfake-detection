@@ -19,8 +19,10 @@
             <h2 class="text-lg mb-2 font-medium">API Usage</h2>
             <ul class="list-disc pl-6">
                 <li>Deepfake: {{ $usage['deepfake'] }}</li>
-                <li>Nudity: {{ $usage['nudity'] }}</li>
+
                 <li>Face: {{ $usage['face'] }}</li>
+                <li>WAD: {{ $usage['wad'] }}</li>
+                <li>Offensive: {{ $usage['offensive'] }}</li>
             </ul>
         </div>
         <table class="min-w-full border text-sm bg-white rounded shadow">
@@ -48,12 +50,16 @@
                     @if ($analysis->service === 'deepfake')
                         @php $score = $analysis->result['score'] ?? null; @endphp
                         {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Fake' : 'Likely Real') }}
-                    @elseif ($analysis->service === 'nudity')
-                        @php $n = $analysis->result['nudity'] ?? null; @endphp
-                        {{ $n && $n['safe'] > 0.5 ? 'Safe' : 'Explicit' }}
                     @elseif ($analysis->service === 'face')
                         @php $c = isset($analysis->result['faces']) ? count($analysis->result['faces']) : 0; @endphp
                         {{ $c === 0 ? 'No face' : $c . ' face(s)' }}
+                    @elseif ($analysis->service === 'wad')
+                        @php $w = $analysis->result; @endphp
+                        Weapon {{ $w['weapon'] ?? 0 }}, Alcohol {{ $w['alcohol'] ?? 0 }}, Drugs {{ $w['drugs'] ?? 0 }}
+                    @elseif ($analysis->service === 'offensive')
+                        @php $off = $analysis->result['offensive']['prob'] ?? null; @endphp
+                        {{ $off === null ? '-' : round($off * 100) . '% offensive' }}
+
                     @else
                         -
                     @endif
@@ -63,7 +69,7 @@
             </tr>
             @endforeach
         </tbody>
- </table>
+</table>
 
         <div class="mt-4">
             {{ $analyses->links() }}

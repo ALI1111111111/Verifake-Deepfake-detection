@@ -16,7 +16,8 @@ class AnalysisFactory extends Factory
             'user_id' => User::factory(),
             'file_path' => 'analyses/sample.jpg',
             'result' => ['score' => $this->faker->randomFloat(2, 0, 1)],
-            'service' => $this->faker->randomElement(['deepfake', 'nudity', 'face']),
+'service' => $this->faker->randomElement(['deepfake', 'face', 'wad', 'offensive']),
+
         ];
     }
 }

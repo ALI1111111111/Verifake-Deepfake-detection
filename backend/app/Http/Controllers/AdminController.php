@@ -39,8 +39,10 @@ class AdminController extends Controller
         $analyses = Analysis::with('user')->latest()->paginate(10);
         $usage = [
             'deepfake' => Analysis::where('service', 'deepfake')->count(),
-            'nudity' => Analysis::where('service', 'nudity')->count(),
-            'face' => Analysis::where('service', 'face')->count(),
+ 'face' => Analysis::where('service', 'face')->count(),
+            'wad' => Analysis::where('service', 'wad')->count(),
+            'offensive' => Analysis::where('service', 'offensive')->count(),
+
         ];
         return view('admin.dashboard', compact('analyses', 'usage'));
     }

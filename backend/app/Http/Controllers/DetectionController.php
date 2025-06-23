@@ -28,8 +28,10 @@ class DetectionController extends Controller
 
         $service = $request->get('service', 'deepfake');
         $models = match ($service) {
-            'nudity' => 'nudity-2.0',
+
             'face' => 'face-attributes',
+            'wad' => 'wad',
+            'offensive' => 'offensive',
             default => 'deepfake',
         };
 

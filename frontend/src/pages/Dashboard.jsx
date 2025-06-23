@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
+import FacePreview from '../components/FacePreview';
+
 
 export default function Dashboard() {
   const [file, setFile] = useState(null);
@@ -31,7 +32,7 @@ const [results, setResults] = useState([]);
     formData.append('service', service);
     try {
       setLoading(true);
-const { data } = await api.post('/detect', formData);
+ const { data } = await api.post('/detect', formData);
       toast.success('File analyzed');
       setResults((prev) => [data, ...prev]);
 
@@ -64,8 +65,10 @@ const { data } = await api.post('/detect', formData);
             onChange={(e) => setService(e.target.value)}
           >
             <option value="deepfake">Deepfake</option>
-            <option value="nudity">Nudity</option>
-            <option value="face">Face</option>
+<option value="face">Face</option>
+            <option value="wad">Weapons/Alcohol/Drugs</option>
+            <option value="offensive">Offensive</option>
+
           </select>
           <button
             className="bg-green-500 text-white p-2 rounded disabled:opacity-50"
@@ -90,28 +93,43 @@ const { data } = await api.post('/detect', formData);
               <tbody>
                 {results.map((item) => (
                   <tr key={item.id} className="odd:bg-gray-100">
-                    <td className="border px-2 py-1">
-                      <img
-                        src={`${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}/storage/${item.file_path}`}
-                        alt="preview"
-                        className="h-12 mx-auto"
-                      />
+
+                    <td className="border px-2 py-1 text-center">
+                      {item.service === 'face' ? (
+                        <FacePreview
+                          src={`${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}/storage/${item.file_path}`}
+                          faces={item.result?.faces}
+                        />
+                      ) : (
+                        <img
+                          src={`${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}/storage/${item.file_path}`}
+                          alt="preview"
+                          className="h-12 mx-auto"
+                        />
+                      )}
                     </td>
                     <td className="border px-2 py-1">{item.service}</td>
                     <td className="border px-2 py-1">
-{(() => {
+                      {(() => {
+
                         if (item.service === 'deepfake') {
                           return item.result?.score > 0.5
                             ? 'Likely Fake'
                             : 'Likely Real';
                         }
-                        if (item.service === 'nudity') {
-                          const n = item.result?.nudity;
-                          return n && n.safe > 0.5 ? 'Safe' : 'Explicit';
-                        }
+
                         if (item.service === 'face') {
                           const count = item.result?.faces?.length ?? 0;
                           return count === 0 ? 'No face' : `${count} face(s)`;
+                        }
+
+                        if (item.service === 'wad') {
+                          const w = item.result || {};
+                          return `Weapon ${w.weapon ?? 0}, Alcohol ${w.alcohol ?? 0}, Drugs ${w.drugs ?? 0}`;
+                        }
+                        if (item.service === 'offensive') {
+                          const off = item.result?.offensive?.prob ?? null;
+                          return off === null ? '-' : `${Math.round(off * 100)}% offensive`;
                         }
                         return '-';
                       })()}

@@ -24,6 +24,15 @@ export default function LandingPage() {
               <h4 className="font-medium mb-2">Secure</h4>
               <p>Your uploads are kept private and deleted after processing.</p>
             </div>
+  <div className="p-4 rounded-lg shadow animate-fade-in delay-300">
+              <h4 className="font-medium mb-2">Face Highlighting</h4>
+              <p>See detected faces outlined directly on your images.</p>
+            </div>
+            <div className="p-4 rounded-lg shadow animate-fade-in delay-400">
+              <h4 className="font-medium mb-2">WAD Checks</h4>
+              <p>Identify weapons, alcohol and drugs content instantly.</p>
+            </div>
+
           </div>
         </div>
       </section>
