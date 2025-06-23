@@ -9,6 +9,7 @@ export default function ProfilePage() {
   const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
 
+
   if (!user) return null;
 
   return (
@@ -56,4 +57,4 @@ export default function ProfilePage() {
       </div>
     </div>
   );
-}
+

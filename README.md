@@ -4,6 +4,7 @@ This project contains a simple Laravel API backend and a React frontend using Vi
 
 The free Sightengine tier allows **1000 requests per month**. Each additional call is charged according to their pricing (around $0.001 per request at the time of writing). This project stores a per-user API limit so you can restrict how many analyses each account can run.
 
+
 ## Getting Started with Git
 
 Clone the repository and install the dependencies for both the backend and frontend:
@@ -68,3 +69,4 @@ npm run lint
 Backend tests and migrations may require additional setup if PHP is not installed locally. Sightengine API calls need valid credentials.
 The database seeders create an admin account with email `admin@example.com` and password `password`. Access the admin dashboard at `http://localhost:8000/admin`.
 From the Users page in the dashboard you can adjust the API request limit for each account.
+

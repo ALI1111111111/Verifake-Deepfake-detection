@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50 p-6">
@@ -23,6 +24,7 @@
             </ul>
         </div>
         <table class="min-w-full border text-sm bg-white rounded shadow">
+
         <thead>
             <tr>
                 <th class="border px-2 py-1">ID</th>
@@ -30,6 +32,7 @@
                 <th class="border px-2 py-1">Service</th>
                 <th class="border px-2 py-1">Preview</th>
                 <th class="border px-2 py-1">Result</th>
+
                 <th class="border px-2 py-1">Created</th>
             </tr>
         </thead>
@@ -44,14 +47,16 @@
                     @php $score = $analysis->result['score'] ?? null; @endphp
                     {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Fake' : 'Likely Real') }}
                 </td>
+
                 <td class="border px-2 py-1">{{ $analysis->created_at }}</td>
             </tr>
             @endforeach
         </tbody>
-        </table>
+</table>
         <div class="mt-4">
             {{ $analyses->links() }}
         </div>
     </div>
+
 </body>
 </html>
