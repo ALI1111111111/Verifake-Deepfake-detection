@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
@@ -8,7 +9,8 @@ export default function Dashboard() {
   const [preview, setPreview] = useState(null);
   const [service, setService] = useState('deepfake');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState([]);
+const [results, setResults] = useState([]);
+
 
   useEffect(() => {
     api
@@ -16,6 +18,7 @@ export default function Dashboard() {
       .then((res) => setResults(res.data))
       .catch(() => toast.error('Failed to load results'));
   }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,9 +31,10 @@ export default function Dashboard() {
     formData.append('service', service);
     try {
       setLoading(true);
-      const { data } = await api.post('/detect', formData);
+const { data } = await api.post('/detect', formData);
       toast.success('File analyzed');
       setResults((prev) => [data, ...prev]);
+
     } finally {
       setLoading(false);
     }
@@ -39,9 +43,10 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col min-h-screen pt-14">
       <Navbar />
-      <div className="p-4 flex-grow container mx-auto">
+ <div className="p-4 flex-grow container mx-auto">
         <h2 className="text-xl mb-4 font-semibold">Analyze File</h2>
         <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded shadow-md">
+
           <input
             type="file"
             onChange={(e) => {
@@ -94,7 +99,7 @@ export default function Dashboard() {
                     </td>
                     <td className="border px-2 py-1">{item.service}</td>
                     <td className="border px-2 py-1">
-                      {(() => {
+{(() => {
                         if (item.service === 'deepfake') {
                           return item.result?.score > 0.5
                             ? 'Likely Fake'
@@ -110,6 +115,7 @@ export default function Dashboard() {
                         }
                         return '-';
                       })()}
+
                     </td>
                     <td className="border px-2 py-1">
                       {new Date(item.created_at).toLocaleString()}
@@ -120,6 +126,7 @@ export default function Dashboard() {
             </table>
           </div>
         )}
+
       </div>
     </div>
   );

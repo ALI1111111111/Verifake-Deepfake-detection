@@ -60,6 +60,7 @@ class AdminController extends Controller
         ]);
         $user->update($data);
         return back();
+
     }
 
     public function logout(Request $request)

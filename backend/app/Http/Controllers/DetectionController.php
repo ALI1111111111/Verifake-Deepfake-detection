@@ -33,14 +33,17 @@ class DetectionController extends Controller
             default => 'deepfake',
         };
 
+
         $path = $request->file('file')->store('analyses', 'public');
 
         $response = Http::attach('media', Storage::disk('public')->get($path), basename($path))
             ->post('https://api.sightengine.com/1.0/check.json', [
                 'models' => $models,
+
                 'api_user' => config('services.sightengine.user'),
                 'api_secret' => config('services.sightengine.secret'),
             ]);
+
 
         if (!$response->successful()) {
             Storage::disk('public')->delete($path);
@@ -53,6 +56,7 @@ class DetectionController extends Controller
             'user_id' => $user->id,
             'file_path' => $path,
             'result' => $result,
+
             'service' => $service,
         ]);
 
