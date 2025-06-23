@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
@@ -22,9 +23,11 @@ export default function Dashboard() {
     formData.append('service', service);
     try {
       setLoading(true);
-        await api.post('/detect', formData);
+      await api.post('/detect', formData);
       toast.success('File uploaded successfully');
       navigate('/results');
+    } catch (error) {
+      toast.error('Error uploading file');
     } finally {
       setLoading(false);
     }

@@ -1,14 +1,17 @@
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
+
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -29,6 +32,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex flex-col min-h-screen pt-14">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="p-4 max-w-md mx-auto flex-grow">
         <h2 className="text-xl mb-4">Register</h2>
@@ -57,6 +61,8 @@ export default function RegisterPage() {
             {loading ? 'Loading...' : 'Register'}
           </button>
         </form>
+      </div>
+
       </div>
     </div>
   );

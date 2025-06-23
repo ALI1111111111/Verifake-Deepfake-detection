@@ -60,6 +60,7 @@ class AdminController extends Controller
         ]);
         $user->update($data);
         return back();
+        return view('admin.dashboard', compact('analyses'));
     }
 
     public function logout(Request $request)

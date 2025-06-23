@@ -9,6 +9,13 @@ export default function ProfilePage() {
   const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
 
+import Navbar from '../components/Navbar';
+
+import { useAuthContext } from '../context/AuthContext';
+
+export default function ProfilePage() {
+  const { user } = useAuthContext();
+
   if (!user) return null;
 
   return (
@@ -56,4 +63,4 @@ export default function ProfilePage() {
       </div>
     </div>
   );
-}
+}}

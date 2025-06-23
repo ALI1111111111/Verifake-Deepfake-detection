@@ -21,6 +21,10 @@
             <li>Face: {{ $usage['face'] }}</li>
         </ul>
     </div>
+    <form method="POST" action="{{ route('admin.logout') }}">
+        @csrf
+        <button class="bg-gray-700 text-white p-2 mb-4">Logout</button>
+    </form>
     <table class="min-w-full border text-sm">
         <thead>
             <tr>
@@ -29,6 +33,10 @@
                 <th class="border px-2 py-1">Service</th>
                 <th class="border px-2 py-1">Preview</th>
                 <th class="border px-2 py-1">Result</th>
+ <th class="border px-2 py-1">Score</th>
+
+
+
                 <th class="border px-2 py-1">Created</th>
             </tr>
         </thead>
@@ -43,6 +51,11 @@
                     @php $score = $analysis->result['score'] ?? null; @endphp
                     {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Fake' : 'Likely Real') }}
                 </td>
+
+                <td class="border px-2 py-1">{{ $analysis->result['score'] ?? '-' }}</td>
+
+
+
                 <td class="border px-2 py-1">{{ $analysis->created_at }}</td>
             </tr>
             @endforeach
