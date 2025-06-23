@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
+=======
+import { useNavigate } from 'react-router-dom';
+>>>>>>> main
 
 export default function Dashboard() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+<<<<<<< HEAD
   const { logout } = useAuthContext();
+=======
+>>>>>>> main
 
   const handleSubmit = async (e) => {
     e.preventDefault();
