@@ -24,14 +24,10 @@ class AuthController extends Controller
             'api_token' => Str::random(60),
         ]);
 
-<<<<<<< HEAD
         return response()->json([
             'token' => $user->api_token,
             'user' => $user,
         ], 201);
-=======
-        return response()->json(['token' => $user->api_token], 201);
->>>>>>> main
     }
 
     public function login(Request $request)
@@ -52,7 +48,6 @@ class AuthController extends Controller
             $user->save();
         }
 
-<<<<<<< HEAD
         return response()->json([
             'token' => $user->api_token,
             'user' => $user,
@@ -62,8 +57,5 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         return $request->user();
-=======
-        return response()->json(['token' => $user->api_token]);
->>>>>>> main
     }
 }

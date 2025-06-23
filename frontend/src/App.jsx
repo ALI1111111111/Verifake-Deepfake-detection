@@ -4,10 +4,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
 import ResultsPage from './pages/ResultsPage';
-<<<<<<< HEAD
 import ProfilePage from './pages/ProfilePage';
-=======
->>>>>>> main
 import ProtectedRoute from './routes/ProtectedRoute';
 
 export default function App() {
@@ -19,10 +16,7 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/results" element={<ResultsPage />} />
-<<<<<<< HEAD
         <Route path="/profile" element={<ProfilePage />} />
-=======
->>>>>>> main
       </Route>
     </Routes>
   );
