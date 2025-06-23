@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function Dashboard() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { logout } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,8 +21,13 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl mb-4">Upload File</h2>
+    <div className="p-4 space-y-4">
+      <nav className="space-x-4">
+        <Link to="/profile" className="text-blue-500 underline">Profile</Link>
+        <Link to="/results" className="text-blue-500 underline">Results</Link>
+        <button onClick={logout} className="text-red-500 underline">Logout</button>
+      </nav>
+      <h2 className="text-xl">Upload File</h2>
       <form onSubmit={handleSubmit} className="space-y-3">
         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
         <button className="bg-green-500 text-white p-2" disabled={loading}>

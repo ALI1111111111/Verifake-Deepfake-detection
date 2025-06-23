@@ -18,9 +18,9 @@ This project contains a simple Laravel API backend and a React frontend using Vi
    ```bash
    php artisan key:generate
    ```
-5. Run migrations:
+5. Run migrations with seeders to populate dummy data:
    ```bash
-   php artisan migrate
+   php artisan migrate --seed
    ```
 6. Link the storage directory (for uploaded files):
    ```bash
@@ -53,3 +53,4 @@ npm run lint
 ## Notes
 
 Backend tests and migrations may require additional setup if PHP is not installed locally. Sightengine API calls need valid credentials.
+The database seeders create an admin account with email `admin@example.com` and password `password` for the Blade dashboard.
