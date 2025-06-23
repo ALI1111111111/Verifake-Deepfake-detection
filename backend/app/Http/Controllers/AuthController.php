@@ -61,7 +61,9 @@ class AuthController extends Controller
     {
         return $request->user();
 
+
         return response()->json(['token' => $user->api_token]);
+
 
 
     }
