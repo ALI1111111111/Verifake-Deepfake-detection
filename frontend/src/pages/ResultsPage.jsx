@@ -36,7 +36,7 @@ export default function ResultsPage() {
                 <td className="border px-2 py-1">{item.id}</td>
                 <td className="border px-2 py-1">{item.file_path}</td>
                 <td className="border px-2 py-1">
-                  {item.result?.score !== undefined ? item.result.score : '-'}
+                  {item.result?.type.deepfake !== undefined ? item.result.type.deepfake : '-'}
                 </td>
                 <td className="border px-2 py-1">
                   {new Date(item.created_at).toLocaleString()}
