@@ -23,7 +23,10 @@ class User extends Authenticatable
         'email',
         'password',
         'api_token',
+<<<<<<< HEAD
         'is_admin',
+=======
+>>>>>>> main
     ];
 
     /**

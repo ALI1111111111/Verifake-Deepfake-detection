@@ -4,6 +4,7 @@ export default function LandingPage() {
   return (
     <div className="p-4 text-center">
       <h1 className="text-3xl font-bold mb-4">Deepfake Detector</h1>
+<<<<<<< HEAD
       <div className="space-x-4">
         <Link to="/login" className="text-blue-500 underline">
           Login
@@ -12,6 +13,11 @@ export default function LandingPage() {
           Register
         </Link>
       </div>
+=======
+      <Link to="/login" className="text-blue-500 underline">
+        Login to continue
+      </Link>
+>>>>>>> main
     </div>
   );
 }
