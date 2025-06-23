@@ -2,6 +2,20 @@
 
 This project contains a simple Laravel API backend and a React frontend using Vite. The backend integrates with [Sightengine](https://sightengine.com/) to perform deepfake analysis on uploaded files.
 
+<<<<<<< HEAD
+## Getting Started with Git
+
+Clone the repository and install the dependencies for both the backend and frontend:
+
+```bash
+git clone <repository-url>
+cd Deepfake-detection
+```
+
+After cloning you can follow the setup instructions below for each part of the application.
+
+=======
+>>>>>>> main
 ## Prerequisites
 
 - PHP ^8.2 with Composer
@@ -18,9 +32,15 @@ This project contains a simple Laravel API backend and a React frontend using Vi
    ```bash
    php artisan key:generate
    ```
+<<<<<<< HEAD
+5. Run migrations with seeders to populate dummy data:
+   ```bash
+   php artisan migrate --seed
+=======
 5. Run migrations:
    ```bash
    php artisan migrate
+>>>>>>> main
    ```
 6. Link the storage directory (for uploaded files):
    ```bash
@@ -53,3 +73,7 @@ npm run lint
 ## Notes
 
 Backend tests and migrations may require additional setup if PHP is not installed locally. Sightengine API calls need valid credentials.
+<<<<<<< HEAD
+The database seeders create an admin account with email `admin@example.com` and password `password` for the Blade dashboard.
+=======
+>>>>>>> main

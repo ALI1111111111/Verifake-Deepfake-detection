@@ -33,6 +33,14 @@ export default function LoginPage() {
           Login
         </button>
       </form>
+<<<<<<< HEAD
+      <p className="mt-4 text-center">
+        <a href="/register" className="text-blue-500 underline">
+          Need an account? Register
+        </a>
+      </p>
+=======
+>>>>>>> main
     </div>
   );
 }
