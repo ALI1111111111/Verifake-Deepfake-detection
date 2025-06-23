@@ -41,11 +41,24 @@ export default function ResultsPage() {
                 </td>
                 <td className="border px-2 py-1">{item.service}</td>
                 <td className="border px-2 py-1">
-                  {item.result?.score === undefined
-                    ? '-'
-                    : item.result.score > 0.5
-                    ? 'Likely Fake'
-                    : 'Likely Real'}
+
+                  {(() => {
+                    if (item.service === 'deepfake') {
+                      return item.result?.score > 0.5
+                        ? 'Likely Fake'
+                        : 'Likely Real';
+                    }
+                    if (item.service === 'nudity') {
+                      const n = item.result?.nudity;
+                      return n && n.safe > 0.5 ? 'Safe' : 'Explicit';
+                    }
+                    if (item.service === 'face') {
+                      const count = item.result?.faces?.length ?? 0;
+                      return count === 0 ? 'No face' : `${count} face(s)`;
+                    }
+                    return '-';
+                  })()}
+
                 </td>
                 <td className="border px-2 py-1">
                   {new Date(item.created_at).toLocaleString()}

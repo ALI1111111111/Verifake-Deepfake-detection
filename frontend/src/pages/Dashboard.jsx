@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
 const [results, setResults] = useState([]);
 
+
   useEffect(() => {
     api
       .get('/analyses')
@@ -30,7 +31,7 @@ const [results, setResults] = useState([]);
     formData.append('service', service);
     try {
       setLoading(true);
- const { data } = await api.post('/detect', formData);
+const { data } = await api.post('/detect', formData);
       toast.success('File analyzed');
       setResults((prev) => [data, ...prev]);
 
@@ -98,11 +99,23 @@ const [results, setResults] = useState([]);
                     </td>
                     <td className="border px-2 py-1">{item.service}</td>
                     <td className="border px-2 py-1">
-                      {item.result?.type?.deepfake === undefined
-                        ? '-'
-                        : item.result.type.deepfake > 0.5
-                        ? 'Likely Real'
-                        : 'Likely Fake'}
+{(() => {
+                        if (item.service === 'deepfake') {
+                          return item.result?.score > 0.5
+                            ? 'Likely Fake'
+                            : 'Likely Real';
+                        }
+                        if (item.service === 'nudity') {
+                          const n = item.result?.nudity;
+                          return n && n.safe > 0.5 ? 'Safe' : 'Explicit';
+                        }
+                        if (item.service === 'face') {
+                          const count = item.result?.faces?.length ?? 0;
+                          return count === 0 ? 'No face' : `${count} face(s)`;
+                        }
+                        return '-';
+                      })()}
+
                     </td>
                     <td className="border px-2 py-1">
                       {new Date(item.created_at).toLocaleString()}

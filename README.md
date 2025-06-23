@@ -27,7 +27,8 @@ After cloning you can follow the setup instructions below for each part of the a
 
 1. `cd backend`
 2. Run `composer install`
-3. Copy `.env.example` to `.env` and fill in database details and Sightengine credentials
+3. Copy `.env.example` to `.env` and fill in database details and Sightengine credentials. Set `FILESYSTEM_DISK=public` so uploaded files are accessible via the `/storage` URL.
+
 4. Generate an application key:
    ```bash
    php artisan key:generate
