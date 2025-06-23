@@ -13,6 +13,7 @@ export default function ResultsPage() {
   return (
     <div className="p-4">
       <h2 className="text-xl mb-4">Analysis Results</h2>
+
       <table className="min-w-full text-sm border">
         <thead>
           <tr>
@@ -37,6 +38,15 @@ export default function ResultsPage() {
           ))}
         </tbody>
       </table>
+
+      <ul className="space-y-2">
+        {results.map((item) => (
+          <li key={item.id} className="border p-2">
+            <pre className="text-sm">{JSON.stringify(item.result, null, 2)}</pre>
+          </li>
+        ))}
+      </ul>
+
     </div>
   );
 }
