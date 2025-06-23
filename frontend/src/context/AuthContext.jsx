@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       api.get('/user')
         .then((res) => setUser(res.data))
         .catch(() => toast.error('Failed to load user'));
@@ -33,8 +33,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', jwt);
       setToken(jwt);
       setUser(data.user);
-      toast.success('Logged in successfully');
- setUser(data.user);
       toast.success('Logged in successfully');
 
       navigate('/dashboard');

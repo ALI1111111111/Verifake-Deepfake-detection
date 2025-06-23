@@ -2,14 +2,16 @@
 <html>
 <head>
     <title>Users</title>
-    @vite('resources/css/app.css')
+ <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="p-4">
-    <h1 class="text-2xl mb-4">Users</h1>
-    <nav class="mb-4 space-x-4">
-        <a href="/admin" class="text-blue-600 underline">Dashboard</a>
-    </nav>
-    <table class="min-w-full border text-sm mb-4">
+<body class="bg-gray-50 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl mb-4 font-semibold">Users</h1>
+        <nav class="mb-4 space-x-4">
+            <a href="/admin" class="text-blue-600 underline">Dashboard</a>
+        </nav>
+        <table class="min-w-full border text-sm mb-4 bg-white rounded shadow">
+
         <thead>
             <tr>
                 <th class="border px-2 py-1">ID</th>
@@ -39,6 +41,10 @@
             @endforeach
         </tbody>
     </table>
-    {{ $users->links() }}
+   <div class="mt-4">
+            {{ $users->links() }}
+        </div>
+    </div>
+
 </body>
 </html>

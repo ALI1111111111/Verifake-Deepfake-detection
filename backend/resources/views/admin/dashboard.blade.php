@@ -2,30 +2,29 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
-    @vite('resources/css/app.css')
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="p-4">
-    <h1 class="text-2xl mb-4">Admin Dashboard</h1>
-    <nav class="mb-4 space-x-4">
-        <a href="{{ url('admin/users') }}" class="text-blue-600 underline">Users</a>
-        <form method="POST" action="{{ route('admin.logout') }}" class="inline">
-            @csrf
-            <button class="bg-gray-700 text-white px-2 py-1">Logout</button>
-        </form>
-    </nav>
-    <div class="mb-6">
-        <h2 class="text-lg mb-2">API Usage</h2>
-        <ul class="list-disc pl-6">
-            <li>Deepfake: {{ $usage['deepfake'] }}</li>
-            <li>Nudity: {{ $usage['nudity'] }}</li>
-            <li>Face: {{ $usage['face'] }}</li>
-        </ul>
-    </div>
-    <form method="POST" action="{{ route('admin.logout') }}">
-        @csrf
-        <button class="bg-gray-700 text-white p-2 mb-4">Logout</button>
-    </form>
-    <table class="min-w-full border text-sm">
+<body class="bg-gray-50 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl mb-4 font-semibold">Admin Dashboard</h1>
+        <nav class="mb-4 space-x-4">
+            <a href="{{ url('admin/users') }}" class="text-blue-600 underline">Users</a>
+            <form method="POST" action="{{ route('admin.logout') }}" class="inline">
+                @csrf
+                <button class="bg-gray-700 text-white px-2 py-1 rounded">Logout</button>
+            </form>
+        </nav>
+        <div class="mb-6">
+            <h2 class="text-lg mb-2 font-medium">API Usage</h2>
+            <ul class="list-disc pl-6">
+                <li>Deepfake: {{ $usage['deepfake'] }}</li>
+                <li>Nudity: {{ $usage['nudity'] }}</li>
+                <li>Face: {{ $usage['face'] }}</li>
+            </ul>
+        </div>
+        <table class="min-w-full border text-sm bg-white rounded shadow">
+
         <thead>
             <tr>
                 <th class="border px-2 py-1">ID</th>
@@ -33,9 +32,6 @@
                 <th class="border px-2 py-1">Service</th>
                 <th class="border px-2 py-1">Preview</th>
                 <th class="border px-2 py-1">Result</th>
- <th class="border px-2 py-1">Score</th>
-
-
 
                 <th class="border px-2 py-1">Created</th>
             </tr>
@@ -52,15 +48,15 @@
                     {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Fake' : 'Likely Real') }}
                 </td>
 
-                <td class="border px-2 py-1">{{ $analysis->result['score'] ?? '-' }}</td>
-
-
-
                 <td class="border px-2 py-1">{{ $analysis->created_at }}</td>
             </tr>
             @endforeach
         </tbody>
-    </table>
-    {{ $analyses->links() }}
+</table>
+        <div class="mt-4">
+            {{ $analyses->links() }}
+        </div>
+    </div>
+
 </body>
 </html>

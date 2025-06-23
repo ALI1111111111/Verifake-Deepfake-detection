@@ -19,9 +19,6 @@ export default function App() {
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
 
- <Route path="/profile" element={<ProfilePage />} />
-
-
       </Route>
     </Routes>
   );

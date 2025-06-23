@@ -76,10 +76,5 @@ class AuthController extends Controller
         $user->update(array_filter($data));
         return $user;
 
-
-        return response()->json(['token' => $user->api_token]);
-
-
-
     }
 }

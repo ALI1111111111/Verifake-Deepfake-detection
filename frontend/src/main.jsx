@@ -14,7 +14,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <App />
         <ToastContainer position="top-right" />
-<ToastContainer position="top-right" />
 
       </AuthProvider>
     </BrowserRouter>
