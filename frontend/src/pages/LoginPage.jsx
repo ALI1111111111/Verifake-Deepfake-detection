@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 import Navbar from '../components/Navbar';
 
+
 export default function LoginPage() {
   const { login, loading } = useAuth();
   const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!email || !password) {
       toast.error('Please enter email and password');
       return;
@@ -23,6 +25,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col min-h-screen pt-14">
+
       <Navbar />
       <div className="p-4 max-w-md mx-auto flex-grow">
         <h2 className="text-xl mb-4">Login</h2>
@@ -51,6 +54,7 @@ export default function LoginPage() {
           </a>
         </p>
       </div>
+
     </div>
   );
 }

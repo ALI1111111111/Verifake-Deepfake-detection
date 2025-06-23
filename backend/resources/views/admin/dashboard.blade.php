@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-gray-50 p-6">
     <div class="container mx-auto">
@@ -18,12 +19,14 @@
             <h2 class="text-lg mb-2 font-medium">API Usage</h2>
             <ul class="list-disc pl-6">
                 <li>Deepfake: {{ $usage['deepfake'] }}</li>
+
                 <li>Face: {{ $usage['face'] }}</li>
                 <li>WAD: {{ $usage['wad'] }}</li>
                 <li>Offensive: {{ $usage['offensive'] }}</li>
             </ul>
         </div>
         <table class="min-w-full border text-sm bg-white rounded shadow">
+
         <thead>
             <tr>
                 <th class="border px-2 py-1">ID</th>
@@ -31,6 +34,7 @@
                 <th class="border px-2 py-1">Service</th>
                 <th class="border px-2 py-1">Preview</th>
                 <th class="border px-2 py-1">Result</th>
+
                 <th class="border px-2 py-1">Created</th>
             </tr>
         </thead>
@@ -42,6 +46,7 @@
                 <td class="border px-2 py-1">{{ $analysis->service }}</td>
                 <td class="border px-2 py-1"><img src="{{ asset('storage/'.$analysis->file_path) }}" class="h-12" /></td>
                 <td class="border px-2 py-1">
+
                     @if ($analysis->service === 'deepfake')
                         @php $score = $analysis->result['score'] ?? null; @endphp
                         {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Fake' : 'Likely Real') }}
@@ -54,18 +59,22 @@
                     @elseif ($analysis->service === 'offensive')
                         @php $off = $analysis->result['offensive']['prob'] ?? null; @endphp
                         {{ $off === null ? '-' : round($off * 100) . '% offensive' }}
+
                     @else
                         -
                     @endif
                 </td>
+
                 <td class="border px-2 py-1">{{ $analysis->created_at }}</td>
             </tr>
             @endforeach
         </tbody>
-        </table>
+</table>
+
         <div class="mt-4">
             {{ $analyses->links() }}
         </div>
     </div>
+
 </body>
 </html>

@@ -3,6 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 
 export default function HeroSection() {
   const { isAuthenticated } = useAuthContext();
+
   return (
     <section className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-20">
       <div className="container mx-auto px-4 text-center">
@@ -10,11 +11,13 @@ export default function HeroSection() {
           Detect Deepfakes Effortlessly
         </h2>
         <p className="max-w-xl mx-auto mb-6 opacity-90">
+
           Upload videos or images and let our AI-powered analysis reveal potential deepfakes.
         </p>
         <Link
           to={isAuthenticated ? '/dashboard' : '/register'}
-          className="inline-block bg-white text-indigo-700 font-semibold px-6 py-3 rounded shadow hover:scale-105 transition-transform hover:shadow-lg"
+ className="inline-block bg-white text-indigo-700 font-semibold px-6 py-3 rounded shadow hover:scale-105 transition-transform hover:shadow-lg"
+
         >
           Get Started
         </Link>
@@ -22,3 +25,4 @@ export default function HeroSection() {
     </section>
   );
 }
+

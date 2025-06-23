@@ -48,6 +48,7 @@ class AuthController extends Controller
             $user->save();
         }
 
+
         return response()->json([
             'token' => $user->api_token,
             'user' => $user,
@@ -74,5 +75,6 @@ class AuthController extends Controller
 
         $user->update(array_filter($data));
         return $user;
+
     }
 }

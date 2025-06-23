@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Users</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-gray-50 p-6">
     <div class="container mx-auto">
@@ -11,6 +12,7 @@
             <a href="/admin" class="text-blue-600 underline">Dashboard</a>
         </nav>
         <table class="min-w-full border text-sm mb-4 bg-white rounded shadow">
+
         <thead>
             <tr>
                 <th class="border px-2 py-1">ID</th>
@@ -40,9 +42,10 @@
             @endforeach
         </tbody>
     </table>
-        <div class="mt-4">
+ <div class="mt-4">
             {{ $users->links() }}
         </div>
     </div>
+
 </body>
 </html>

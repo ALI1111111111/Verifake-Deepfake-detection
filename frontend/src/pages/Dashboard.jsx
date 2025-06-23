@@ -4,12 +4,14 @@ import api from '../services/api';
 import Navbar from '../components/Navbar';
 import FacePreview from '../components/FacePreview';
 
+
 export default function Dashboard() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [service, setService] = useState('deepfake');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState([]);
+const [results, setResults] = useState([]);
+
 
   useEffect(() => {
     api
@@ -17,6 +19,7 @@ export default function Dashboard() {
       .then((res) => setResults(res.data))
       .catch(() => toast.error('Failed to load results'));
   }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,9 +32,10 @@ export default function Dashboard() {
     formData.append('service', service);
     try {
       setLoading(true);
-      const { data } = await api.post('/detect', formData);
+ const { data } = await api.post('/detect', formData);
       toast.success('File analyzed');
       setResults((prev) => [data, ...prev]);
+
     } finally {
       setLoading(false);
     }
@@ -40,9 +44,10 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col min-h-screen pt-14">
       <Navbar />
-      <div className="p-4 flex-grow container mx-auto">
+ <div className="p-4 flex-grow container mx-auto">
         <h2 className="text-xl mb-4 font-semibold">Analyze File</h2>
         <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded shadow-md">
+
           <input
             type="file"
             onChange={(e) => {
@@ -60,9 +65,10 @@ export default function Dashboard() {
             onChange={(e) => setService(e.target.value)}
           >
             <option value="deepfake">Deepfake</option>
-            <option value="face">Face</option>
+<option value="face">Face</option>
             <option value="wad">Weapons/Alcohol/Drugs</option>
             <option value="offensive">Offensive</option>
+
           </select>
           <button
             className="bg-green-500 text-white p-2 rounded disabled:opacity-50"
@@ -87,6 +93,7 @@ export default function Dashboard() {
               <tbody>
                 {results.map((item) => (
                   <tr key={item.id} className="odd:bg-gray-100">
+
                     <td className="border px-2 py-1 text-center">
                       {item.service === 'face' ? (
                         <FacePreview
@@ -104,15 +111,18 @@ export default function Dashboard() {
                     <td className="border px-2 py-1">{item.service}</td>
                     <td className="border px-2 py-1">
                       {(() => {
+
                         if (item.service === 'deepfake') {
                           return item.result?.score > 0.5
                             ? 'Likely Fake'
                             : 'Likely Real';
                         }
+
                         if (item.service === 'face') {
                           const count = item.result?.faces?.length ?? 0;
                           return count === 0 ? 'No face' : `${count} face(s)`;
                         }
+
                         if (item.service === 'wad') {
                           const w = item.result || {};
                           return `Weapon ${w.weapon ?? 0}, Alcohol ${w.alcohol ?? 0}, Drugs ${w.drugs ?? 0}`;
@@ -123,6 +133,7 @@ export default function Dashboard() {
                         }
                         return '-';
                       })()}
+
                     </td>
                     <td className="border px-2 py-1">
                       {new Date(item.created_at).toLocaleString()}
@@ -133,6 +144,7 @@ export default function Dashboard() {
             </table>
           </div>
         )}
+
       </div>
     </div>
   );
