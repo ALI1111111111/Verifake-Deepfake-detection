@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
+
 
 export default function ResultsPage() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
+
     api
       .get('/analyses')
       .then((res) => setResults(res.data))
@@ -43,6 +46,7 @@ export default function ResultsPage() {
           </tbody>
         </table>
       </div>
+
     </div>
   );
 }

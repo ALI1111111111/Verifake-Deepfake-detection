@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 import Navbar from '../components/Navbar';
 
+
 export default function LoginPage() {
   const { login, loading } = useAuth();
   const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!email || !password) {
       toast.error('Please enter email and password');
       return;
@@ -51,6 +53,7 @@ export default function LoginPage() {
           </a>
         </p>
       </div>
+
     </div>
   );
 }

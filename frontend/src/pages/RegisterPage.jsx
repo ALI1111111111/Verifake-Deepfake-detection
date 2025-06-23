@@ -1,14 +1,17 @@
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
+
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -58,6 +61,7 @@ export default function RegisterPage() {
           </button>
         </form>
       </div>
+
     </div>
   );
 }

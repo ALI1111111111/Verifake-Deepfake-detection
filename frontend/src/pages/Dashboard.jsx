@@ -1,8 +1,11 @@
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
+
+
 
 export default function Dashboard() {
   const [file, setFile] = useState(null);
@@ -42,6 +45,7 @@ export default function Dashboard() {
           </button>
         </form>
       </div>
+
     </div>
   );
 }

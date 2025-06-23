@@ -1,4 +1,6 @@
+
 import Navbar from '../components/Navbar';
+
 import { useAuthContext } from '../context/AuthContext';
 
 export default function ProfilePage() {
@@ -7,6 +9,7 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
+
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="p-4 flex-grow">
@@ -20,6 +23,7 @@ export default function ProfilePage() {
           </p>
         </div>
       </div>
+
     </div>
   );
 }
