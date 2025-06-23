@@ -15,9 +15,8 @@
             <tr>
                 <th class="border px-2 py-1">ID</th>
                 <th class="border px-2 py-1">User</th>
+ <th class="border px-2 py-1">Score</th>
 
-
-                <th class="border px-2 py-1">Score</th>
 
 
                 <th class="border px-2 py-1">Created</th>
@@ -30,6 +29,7 @@
                 <td class="border px-2 py-1">{{ $analysis->user->email }}</td>
 
                 <td class="border px-2 py-1">{{ $analysis->result['score'] ?? '-' }}</td>
+
 
 
                 <td class="border px-2 py-1">{{ $analysis->created_at }}</td>
