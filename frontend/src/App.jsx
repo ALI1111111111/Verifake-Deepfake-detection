@@ -17,7 +17,9 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/results" element={<ResultsPage />} />
+
 <Route path="/profile" element={<ProfilePage />} />
+
 
       </Route>
     </Routes>

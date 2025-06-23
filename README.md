@@ -31,12 +31,11 @@ After cloning you can follow the setup instructions below for each part of the a
    ```bash
    php artisan key:generate
    ```
-
 5. Run migrations with seeders to populate dummy data:
    ```bash
    php artisan migrate --seed
+   ```
 
-  
 6. Link the storage directory (for uploaded files):
    ```bash
    php artisan storage:link
@@ -68,6 +67,5 @@ npm run lint
 ## Notes
 
 Backend tests and migrations may require additional setup if PHP is not installed locally. Sightengine API calls need valid credentials.
-
 The database seeders create an admin account with email `admin@example.com` and password `password` for the Blade dashboard.
 

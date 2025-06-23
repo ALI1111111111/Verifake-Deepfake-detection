@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-const { logout } = useAuthContext();
+ const { logout } = useAuthContext();
 
 
   const handleSubmit = async (e) => {
@@ -30,9 +30,11 @@ const { logout } = useAuthContext();
         <Link to="/results" className="text-blue-500 underline">Results</Link>
         <button onClick={logout} className="text-red-500 underline">Logout</button>
       </nav>
+
      
     <div className="p-4">
       <h2 className="text-xl mb-4">Upload File</h2>
+
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
