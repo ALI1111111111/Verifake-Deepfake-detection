@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       api.get('/user')
         .then((res) => setUser(res.data))
@@ -31,6 +32,8 @@ export const AuthProvider = ({ children }) => {
       const jwt = data.token;
       localStorage.setItem('token', jwt);
       setToken(jwt);
+      setUser(data.user);
+      toast.success('Logged in successfully');
  setUser(data.user);
       toast.success('Logged in successfully');
 
@@ -47,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout, loading, isAuthenticated: !!token }}>
+    <AuthContext.Provider value={{ token, user, setUser, login, logout, loading, isAuthenticated: !!token }}>
       {children}
     </AuthContext.Provider>
   );

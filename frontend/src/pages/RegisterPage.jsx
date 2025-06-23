@@ -31,6 +31,7 @@ export default function RegisterPage() {
   };
 
   return (
+    <div className="flex flex-col min-h-screen pt-14">
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="p-4 max-w-md mx-auto flex-grow">
@@ -62,6 +63,7 @@ export default function RegisterPage() {
         </form>
       </div>
 
+      </div>
     </div>
   );
 }

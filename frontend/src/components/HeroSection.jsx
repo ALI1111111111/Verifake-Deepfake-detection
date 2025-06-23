@@ -1,4 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
+
+export default function HeroSection() {
+  const { isAuthenticated } = useAuthContext();
 
 export default function HeroSection() {
   return (
@@ -9,6 +13,7 @@ export default function HeroSection() {
           Upload videos or images and let our AI-powered analysis reveal potential deepfakes.
         </p>
         <Link
+          to={isAuthenticated ? '/dashboard' : '/register'}
           to="/register"
           className="inline-block bg-white text-indigo-700 font-semibold px-6 py-3 rounded shadow hover:scale-105 transition-transform"
         >
@@ -17,4 +22,5 @@ export default function HeroSection() {
       </div>
     </section>
   );
+}
 }

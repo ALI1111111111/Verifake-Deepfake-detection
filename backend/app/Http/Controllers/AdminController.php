@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,29 @@ class AdminController extends Controller
     {
         abort_unless(Auth::check() && Auth::user()->is_admin, 403);
         $analyses = Analysis::with('user')->latest()->paginate(10);
+        $usage = [
+            'deepfake' => Analysis::where('service', 'deepfake')->count(),
+            'nudity' => Analysis::where('service', 'nudity')->count(),
+            'face' => Analysis::where('service', 'face')->count(),
+        ];
+        return view('admin.dashboard', compact('analyses', 'usage'));
+    }
+
+    public function users()
+    {
+        abort_unless(Auth::check() && Auth::user()->is_admin, 403);
+        $users = User::withCount('analyses')->paginate(10);
+        return view('admin.users', compact('users'));
+    }
+
+    public function updateLimit(Request $request, User $user)
+    {
+        abort_unless(Auth::check() && Auth::user()->is_admin, 403);
+        $data = $request->validate([
+            'api_limit' => 'required|integer|min:1',
+        ]);
+        $user->update($data);
+        return back();
         return view('admin.dashboard', compact('analyses'));
     }
 

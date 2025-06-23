@@ -18,6 +18,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'api_token' => Str::random(60),
                 'is_admin' => true,
+                'api_limit' => 5000,
+                'api_usage' => 0,
             ]
         );
 

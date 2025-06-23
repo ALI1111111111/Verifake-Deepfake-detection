@@ -14,7 +14,6 @@ cd Deepfake-detection
 
 After cloning you can follow the setup instructions below for each part of the application.
 
-
 ## Prerequisites
 
 - PHP ^8.2 with Composer
@@ -35,7 +34,6 @@ After cloning you can follow the setup instructions below for each part of the a
    ```bash
    php artisan migrate --seed
    ```
-
 6. Link the storage directory (for uploaded files):
    ```bash
    php artisan storage:link

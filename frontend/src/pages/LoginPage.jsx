@@ -24,6 +24,7 @@ export default function LoginPage() {
   };
 
   return (
+    <div className="flex flex-col min-h-screen pt-14">
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="p-4 max-w-md mx-auto flex-grow">
@@ -54,6 +55,7 @@ export default function LoginPage() {
         </p>
       </div>
 
+    </div>
     </div>
   );
 }

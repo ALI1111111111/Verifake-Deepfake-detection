@@ -13,6 +13,7 @@ class Analysis extends Model
         'user_id',
         'file_path',
         'result',
+        'service',
     ];
 
     protected $casts = [
