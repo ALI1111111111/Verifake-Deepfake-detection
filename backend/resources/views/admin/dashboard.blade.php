@@ -4,6 +4,8 @@
     <title>Admin Dashboard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+       <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </head>
 <body class="bg-gray-50 p-6">
     <div class="container mx-auto">
@@ -44,8 +46,8 @@
                 <td class="border px-2 py-1">{{ $analysis->service }}</td>
                 <td class="border px-2 py-1"><img src="{{ asset('storage/'.$analysis->file_path) }}" class="h-12" /></td>
                 <td class="border px-2 py-1">
-                    @php $score = $analysis->result['score'] ?? null; @endphp
-                    {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Fake' : 'Likely Real') }}
+                    @php $score = $analysis->result['type']['deepfake'] ?? null; @endphp
+                    {{ $score === null ? '-' : ($score > 0.5 ? 'Likely Real' : 'Likely Fake') }}
                 </td>
 
                 <td class="border px-2 py-1">{{ $analysis->created_at }}</td>

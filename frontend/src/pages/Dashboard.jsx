@@ -98,11 +98,11 @@ const [results, setResults] = useState([]);
                     </td>
                     <td className="border px-2 py-1">{item.service}</td>
                     <td className="border px-2 py-1">
-                      {item.result?.score === undefined
+                      {item.result?.type?.deepfake === undefined
                         ? '-'
-                        : item.result.score > 0.5
-                        ? 'Likely Fake'
-                        : 'Likely Real'}
+                        : item.result.type.deepfake > 0.5
+                        ? 'Likely Real'
+                        : 'Likely Fake'}
                     </td>
                     <td className="border px-2 py-1">
                       {new Date(item.created_at).toLocaleString()}
