@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
-import Navbar from '../components/Navbar';
-import { Button } from '../components/ui/Button';
+
 
 export default function LoginPage() {
   const { login, loading } = useAuth();
@@ -18,39 +18,90 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch {
-      // error toast handled by interceptor
+
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen pt-14 bg-[url('https://source.unsplash.com/featured/?security')] bg-cover">
-      <Navbar />
-      <div className="p-4 max-w-md mx-auto flex-grow backdrop-blur-md bg-white/70 dark:bg-gray-800/70 rounded">
-        <h2 className="text-xl mb-4 text-center font-semibold">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input
-            className="border p-2 w-full"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            className="border p-2 w-full"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button className="w-full" disabled={loading}>
-            {loading ? 'Loading...' : 'Login'}
-          </Button>
-        </form>
-        <p className="mt-4 text-center">
-          <a href="/register" className="text-indigo-700 dark:text-indigo-300 underline">
-            Need an account? Register
-          </a>
+ <div className="container">
+      <div className="brand-section">
+        <div className="brand-logo">
+          <i className="fas fa-shield-alt" />VeriFake
+        </div>
+        <h1 className="brand-title">Detect Deep Fakes with Precision</h1>
+        <p className="brand-subtitle">
+          Advanced AI-powered detection for videos, images, and audio files
         </p>
+        <ul className="features-list">
+          <li>
+            <i className="fas fa-bolt" /> Real-time deep fake detection
+          </li>
+          <li>
+            <i className="fas fa-lock" /> Military-grade security
+          </li>
+          <li>
+            <i className="fas fa-chart-line" /> 98.7% detection accuracy
+          </li>
+          <li>
+            <i className="fas fa-cloud" /> Secure cloud processing
+          </li>
+        </ul>
+      </div>
+      <div className="form-section">
+        <div className="form-container">
+          <div className="form-header">
+            <h2 className="form-title">Welcome Back</h2>
+            <p className="form-subtitle">
+              Sign in to access your VeriFake account
+            </p>
+            <p className="terms-notice">
+              By continuing, you agree to VeriFake's{' '}
+              <a href="#">Terms of Service</a> and{' '}
+              <a href="#">Privacy Policy</a>.
+            </p>
+          </div>
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+              />
+            </div>
+            <div className="form-options">
+              <label className="remember-me">
+                <input type="checkbox" /> Remember me
+              </label>
+              <a href="#" className="forgot-password">
+                Forgot password?
+              </a>
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Loading...' : 'Log In'}
+            </button>
+          </form>
+          <div className="switch-form">
+            <p>
+              Don't have an account? <Link to="/register">Sign Up</Link>
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   );

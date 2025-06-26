@@ -1,21 +1,22 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
-import Navbar from '../components/Navbar';
-import { Button } from '../components/ui/Button';
+
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+ const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email || !password) {
-      toast.error('All fields are required');
+    if (!name || !email || !password || password !== confirm) {
+      toast.error('Please fill all fields correctly');
+
       return;
     }
     try {
@@ -29,35 +30,96 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen pt-14 bg-[url('https://source.unsplash.com/featured/?signup')] bg-cover">
-      <Navbar />
-      <div className="p-4 max-w-md mx-auto flex-grow backdrop-blur-md bg-white/70 dark:bg-gray-800/70 rounded">
-        <h2 className="text-xl mb-4 text-center font-semibold">Register</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input
-            className="border p-2 w-full"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-          />
-          <input
-            className="border p-2 w-full"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            type="email"
-          />
-          <input
-            className="border p-2 w-full"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            type="password"
-          />
-          <Button className="w-full" disabled={loading}>
-            {loading ? 'Loading...' : 'Register'}
-          </Button>
-        </form>
+ <div className="container">
+      <div className="brand-section">
+        <div className="brand-logo">
+          <i className="fas fa-shield-alt" />VeriFake
+        </div>
+        <h1 className="brand-title">Detect Deep Fakes with Precision</h1>
+        <p className="brand-subtitle">
+          Advanced AI-powered detection for videos, images, and audio files
+        </p>
+        <ul className="features-list">
+          <li>
+            <i className="fas fa-bolt" /> Real-time deep fake detection
+          </li>
+          <li>
+            <i className="fas fa-lock" /> Military-grade security
+          </li>
+          <li>
+            <i className="fas fa-chart-line" /> 98.7% detection accuracy
+          </li>
+          <li>
+            <i className="fas fa-cloud" /> Secure cloud processing
+          </li>
+        </ul>
+      </div>
+      <div className="form-section">
+        <div className="form-container">
+          <div className="form-header">
+            <h2 className="form-title">Create Account</h2>
+            <p className="form-subtitle">Join VeriFake to start detecting deep fakes</p>
+            <p className="terms-notice">
+              By continuing, you agree to VeriFake's{' '}
+              <a href="#">Terms of Service</a> and{' '}
+              <a href="#">Privacy Policy</a>.
+            </p>
+          </div>
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="fullname">Full Name</label>
+              <input
+                id="fullname"
+                className="form-control"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your full name"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="signup-email">Email Address</label>
+              <input
+                type="email"
+                id="signup-email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="signup-password">Password</label>
+              <input
+                type="password"
+                id="signup-password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Create a password"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm-password"
+                className="form-control"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                placeholder="Confirm your password"
+              />
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Loading...' : 'Sign Up'}
+            </button>
+          </form>
+          <div className="switch-form">
+            <p>
+              Already have an account? <Link to="/login">Log In</Link>
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   );
