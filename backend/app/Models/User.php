@@ -26,7 +26,6 @@ class User extends Authenticatable
         'is_admin',
         'api_limit',
         'api_usage',
-
     ];
 
     /**

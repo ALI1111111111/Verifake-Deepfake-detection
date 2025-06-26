@@ -39,10 +39,11 @@ class AdminController extends Controller
         $analyses = Analysis::with('user')->latest()->paginate(10);
         $usage = [
             'deepfake' => Analysis::where('service', 'deepfake')->count(),
- 'face' => Analysis::where('service', 'face')->count(),
+            'face' => Analysis::where('service', 'face')->count(),
             'wad' => Analysis::where('service', 'wad')->count(),
             'offensive' => Analysis::where('service', 'offensive')->count(),
-
+            'properties' => Analysis::where('service', 'properties')->count(),
+            'celebrity' => Analysis::where('service', 'celebrity')->count(),
         ];
         return view('admin.dashboard', compact('analyses', 'usage'));
     }
@@ -62,7 +63,6 @@ class AdminController extends Controller
         ]);
         $user->update($data);
         return back();
-
     }
 
     public function logout(Request $request)

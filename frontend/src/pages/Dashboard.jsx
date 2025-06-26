@@ -3,15 +3,18 @@ import { toast } from 'react-toastify';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import FacePreview from '../components/FacePreview';
-
+import Dropzone from '../components/Dropzone';
+import { Button } from '../components/ui/Button';
 
 export default function Dashboard() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [service, setService] = useState('deepfake');
   const [loading, setLoading] = useState(false);
-const [results, setResults] = useState([]);
-
+  const [progress, setProgress] = useState(0);
+  const [results, setResults] = useState([]);
+  const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('created_at');
 
   useEffect(() => {
     api
@@ -20,6 +23,15 @@ const [results, setResults] = useState([]);
       .catch(() => toast.error('Failed to load results'));
   }, []);
 
+  const filtered = results
+    .filter((r) =>
+      r.service.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) =>
+      sort === 'created_at'
+        ? new Date(b.created_at) - new Date(a.created_at)
+        : a.service.localeCompare(b.service)
+    );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,51 +44,62 @@ const [results, setResults] = useState([]);
     formData.append('service', service);
     try {
       setLoading(true);
- const { data } = await api.post('/detect', formData);
+      setProgress(25);
+      const { data } = await api.post('/detect', formData);
+      setProgress(100);
       toast.success('File analyzed');
       setResults((prev) => [data, ...prev]);
-
     } finally {
       setLoading(false);
+      setTimeout(() => setProgress(0), 500);
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen pt-14">
       <Navbar />
- <div className="p-4 flex-grow container mx-auto">
+      <div className="p-4 flex-grow container mx-auto">
         <h2 className="text-xl mb-4 font-semibold">Analyze File</h2>
-        <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded shadow-md">
-
-          <input
-            type="file"
-            onChange={(e) => {
-              const f = e.target.files[0];
+        <form onSubmit={handleSubmit} className="space-y-4 bg-white dark:bg-gray-800 p-4 rounded shadow-md">
+          <Dropzone
+            onFile={(f) => {
               setFile(f);
-              if (f) setPreview(URL.createObjectURL(f));
+              setPreview(URL.createObjectURL(f));
             }}
+            preview={preview}
           />
-          {preview && (
-            <img src={preview} alt="preview" className="h-32 object-contain" />
-          )}
           <select
             className="border p-2"
             value={service}
             onChange={(e) => setService(e.target.value)}
           >
             <option value="deepfake">Deepfake</option>
-<option value="face">Face</option>
+            <option value="face">Face</option>
             <option value="wad">Weapons/Alcohol/Drugs</option>
             <option value="offensive">Offensive</option>
-
+            <option value="properties">Properties</option>
+            <option value="celebrity">Celebrity</option>
           </select>
-          <button
-            className="bg-green-500 text-white p-2 rounded disabled:opacity-50"
-            disabled={loading}
-          >
+          <Button disabled={loading}>
             {loading ? 'Analyzing...' : 'Analyze'}
-          </button>
+          </Button>
+          {progress > 0 && (
+            <progress value={progress} max="100" className="w-full h-2" />
+          )}
         </form>
+
+        <div className="flex items-center mt-6 gap-2">
+          <input
+            className="border p-2 flex-grow"
+            placeholder="Search by service"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <select className="border p-2" value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="created_at">Newest</option>
+            <option value="service">Service</option>
+          </select>
+        </div>
 
         {results.length > 0 && (
           <div className="mt-8">
@@ -91,9 +114,8 @@ const [results, setResults] = useState([]);
                 </tr>
               </thead>
               <tbody>
-                {results.map((item) => (
+                {filtered.map((item) => (
                   <tr key={item.id} className="odd:bg-gray-100">
-
                     <td className="border px-2 py-1 text-center">
                       {item.service === 'face' ? (
                         <FacePreview
@@ -111,18 +133,15 @@ const [results, setResults] = useState([]);
                     <td className="border px-2 py-1">{item.service}</td>
                     <td className="border px-2 py-1">
                       {(() => {
-
                         if (item.service === 'deepfake') {
                           return item.result?.score > 0.5
                             ? 'Likely Fake'
                             : 'Likely Real';
                         }
-
                         if (item.service === 'face') {
                           const count = item.result?.faces?.length ?? 0;
                           return count === 0 ? 'No face' : `${count} face(s)`;
                         }
-
                         if (item.service === 'wad') {
                           const w = item.result || {};
                           return `Weapon ${w.weapon ?? 0}, Alcohol ${w.alcohol ?? 0}, Drugs ${w.drugs ?? 0}`;
@@ -131,9 +150,15 @@ const [results, setResults] = useState([]);
                           const off = item.result?.offensive?.prob ?? null;
                           return off === null ? '-' : `${Math.round(off * 100)}% offensive`;
                         }
+                        if (item.service === 'properties') {
+                          return `${item.result?.width}x${item.result?.height}`;
+                        }
+                        if (item.service === 'celebrity') {
+                          const names = item.result?.celebrities?.map((c) => c.name).join(', ');
+                          return names || 'None';
+                        }
                         return '-';
                       })()}
-
                     </td>
                     <td className="border px-2 py-1">
                       {new Date(item.created_at).toLocaleString()}
@@ -144,7 +169,6 @@ const [results, setResults] = useState([]);
             </table>
           </div>
         )}
-
       </div>
     </div>
   );

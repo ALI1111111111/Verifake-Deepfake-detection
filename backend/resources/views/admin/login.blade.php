@@ -2,10 +2,7 @@
 <html>
 <head>
     <title>Admin Login</title>
- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
-       <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-50">
     <div class="bg-white p-6 rounded shadow w-full max-w-sm">
@@ -20,6 +17,5 @@
             <button class="bg-blue-600 text-white p-2 rounded w-full">Login</button>
         </form>
     </div>
-
 </body>
 </html>

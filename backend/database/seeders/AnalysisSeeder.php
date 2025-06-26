@@ -13,7 +13,6 @@ class AnalysisSeeder extends Seeder
         $users = User::all();
         foreach ($users as $user) {
             Analysis::factory()->count(3)->create(['user_id' => $user->id]);
-
         }
     }
 }
