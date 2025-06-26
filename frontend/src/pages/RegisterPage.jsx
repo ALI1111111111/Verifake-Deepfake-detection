@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 
+
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+ const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!name || !email || !password || password !== confirm) {
       toast.error('Please fill all fields correctly');
+
       return;
     }
     try {
@@ -28,7 +30,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container">
+ <div className="container">
       <div className="brand-section">
         <div className="brand-logo">
           <i className="fas fa-shield-alt" />VeriFake
@@ -117,6 +119,7 @@ export default function RegisterPage() {
             </p>
           </div>
         </div>
+
       </div>
     </div>
   );
