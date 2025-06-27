@@ -56,7 +56,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen pt-14">
+ <div className="flex flex-col min-h-screen pt-14">
       <Navbar />
       <div className="p-4 flex-grow container mx-auto max-w-5xl space-y-6">
         <h2 className="text-2xl mb-4 font-semibold text-center">Analyze File</h2>
@@ -91,18 +91,20 @@ export default function Dashboard() {
         <div className="flex items-center mt-6 gap-2">
           <input
             className="border p-2 flex-grow rounded"
+
             placeholder="Search by service"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <select className="border p-2 rounded" value={sort} onChange={(e) => setSort(e.target.value)}>
+<select className="border p-2 rounded" value={sort} onChange={(e) => setSort(e.target.value)}>
+
             <option value="created_at">Newest</option>
             <option value="service">Service</option>
           </select>
         </div>
 
         {results.length > 0 && (
-          <div className="mt-8">
+ <div className="mt-8">
             <h3 className="text-lg mb-2 font-medium">Recent Results</h3>
             <table className="min-w-full text-sm border bg-white rounded shadow divide-y divide-gray-200">
               <thead className="bg-gray-100">
@@ -167,6 +169,7 @@ export default function Dashboard() {
                 ))}
               </tbody>
             </table>
+
           </div>
         )}
       </div>

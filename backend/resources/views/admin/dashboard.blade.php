@@ -3,6 +3,10 @@
 <head>
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 <body class="bg-gray-50 p-6">
     <div class="container mx-auto">
