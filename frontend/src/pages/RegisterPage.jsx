@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../services/api';
-
+import useAuth from '../hooks/useAuth';
 
 export default function RegisterPage() {
+  const { isAuthenticated } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- const [confirm, setConfirm] = useState('');
+  const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +36,8 @@ export default function RegisterPage() {
   };
 
   return (
- <div className="container">
+<div className="container">
+
       <div className="brand-section">
         <div className="brand-logo">
           <i className="fas fa-shield-alt" />VeriFake

@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 
-
 export default function LoginPage() {
-  const { login, loading } = useAuth();
+  const { login, loading, isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +28,7 @@ export default function LoginPage() {
 
   return (
  <div className="container">
+
       <div className="brand-section">
         <div className="brand-logo">
           <i className="fas fa-shield-alt" />VeriFake

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/style.css';
+import useAuth from '../hooks/useAuth';
 
 export default function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
+
   return (
     <div>
       <header>
@@ -27,12 +29,21 @@ export default function LandingPage() {
               </li>
             </ul>
             <div className="auth-buttons">
-              <Link to="/login" className="btn btn-outline">
-                Log In
-              </Link>
-              <Link to="/register" className="btn btn-primary">
-                Sign Up
-              </Link>
+ {isAuthenticated ? (
+                <Link to="/dashboard" className="btn btn-primary">
+                  Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link to="/login" className="btn btn-outline">
+                    Log In
+                  </Link>
+                  <Link to="/register" className="btn btn-primary">
+                    Sign Up
+                  </Link>
+                </>
+              )}
+
             </div>
             <button
               className="mobile-menu-btn"
@@ -52,8 +63,12 @@ export default function LandingPage() {
             authenticity with our cutting-edge AI technology
           </p>
           <div className="hero-buttons">
-            <Link to="/register" className="btn btn-primary">
-              Get Started
+<Link
+              to={isAuthenticated ? '/dashboard' : '/register'}
+              className="btn btn-primary"
+            >
+              {isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
+
             </Link>
             <a href="#features" className="btn btn-outline">
               See Demo
