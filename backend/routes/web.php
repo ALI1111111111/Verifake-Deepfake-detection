@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 use App\Http\Controllers\AdminController;
+
+
+Route::redirect('/', '/admin/login');
+Route::get('/login', [AdminController::class, 'showLogin'])->name('login');
+Route::get('/login', [AdminController::class, 'showLogin'])->name('admin.login');
+
+
+
 
 Route::get('admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'login']);
