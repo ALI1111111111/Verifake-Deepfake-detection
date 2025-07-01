@@ -5,7 +5,6 @@ import useAuth from '../hooks/useAuth';
 export default function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAuthenticated } = useAuth();
-
   return (
     <div>
       <header>
@@ -29,7 +28,7 @@ export default function LandingPage() {
               </li>
             </ul>
             <div className="auth-buttons">
- {isAuthenticated ? (
+              {isAuthenticated ? (
                 <Link to="/dashboard" className="btn btn-primary">
                   Dashboard
                 </Link>
@@ -43,7 +42,6 @@ export default function LandingPage() {
                   </Link>
                 </>
               )}
-
             </div>
             <button
               className="mobile-menu-btn"
@@ -63,12 +61,11 @@ export default function LandingPage() {
             authenticity with our cutting-edge AI technology
           </p>
           <div className="hero-buttons">
-<Link
+            <Link
               to={isAuthenticated ? '/dashboard' : '/register'}
               className="btn btn-primary"
             >
               {isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
-
             </Link>
             <a href="#features" className="btn btn-outline">
               See Demo
@@ -334,7 +331,6 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-
     </div>
   );
 }

@@ -1,16 +1,10 @@
-# image_detect
+# Flutter Mobile App
 
-A new Flutter project.
+This directory contains a basic Flutter application that mirrors the React frontend.
+The platform folders were omitted to keep the repository small. To run the app:
 
-## Getting Started
+1. Install Flutter and run `flutter create .` inside this `flutter` directory to generate the missing platform files.
+2. Replace the generated `lib` folder with the one in this repo.
+3. Run `flutter pub get` and `flutter run`.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app expects the Laravel backend to be running at `http://localhost:8000`.
