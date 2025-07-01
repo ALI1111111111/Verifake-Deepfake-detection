@@ -32,3 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/users/{user}/limit', [AdminController::class, 'updateLimit']);
     Route::post('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
+
+use App\Http\Controllers\AdminController;
+
+Route::get('admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
+Route::post('admin/login', [AdminController::class, 'login']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('admin', [AdminController::class, 'index']);
+    Route::get('admin/users', [AdminController::class, 'users']);
+    Route::post('admin/users/{user}/limit', [AdminController::class, 'updateLimit']);
+    Route::post('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+});

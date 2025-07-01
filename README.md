@@ -56,10 +56,7 @@ After cloning you can follow the setup instructions below for each part of the a
    ```
 5. Open the provided URL (usually `http://localhost:5173/landing.html`) to view the landing page. The React app is available under `/login` and other routes.
 
-<<<<<<< HEAD
-=======
 
->>>>>>> main
 ## Linting
 
 Run ESLint on the frontend with:
@@ -72,3 +69,27 @@ npm run lint
 Backend tests and migrations may require additional setup if PHP is not installed locally. Sightengine API calls need valid credentials.
 The database seeders create an admin account with email `admin@example.com` and password `password`. Access the admin dashboard at `http://localhost:8000/admin`.
 From the Users page in the dashboard you can adjust the API request limit for each account.
+
+## Quick Start
+
+After cloning the repo you can spin up both apps with the following commands:
+
+```bash
+# backend
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+php artisan serve &
+
+# frontend
+cd ../frontend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Browse to `http://localhost:5173/landing.html` for the landing page. The admin dashboard is available at `http://localhost:8000/admin` with the login `admin@example.com` / `password`.
+
