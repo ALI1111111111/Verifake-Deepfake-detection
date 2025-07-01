@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>VeriFake - Deep Fake Detection</title>
+=======
+    <title>VeriFake - Advanced Content Detection</title>
+>>>>>>> main
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,10 +28,28 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <div class="auth-buttons">
-                    <a href="/login" class="btn btn-outline">Log In</a>
-                    <a href="/register" class="btn btn-primary">Sign Up</a>
-                </div>
+                <div id="auth-buttons-root"></div>
+                <script>
+                  
+                  const isLoggedIn = localStorage.getItem('token') !== null;
+
+                  const root = document.getElementById('auth-buttons-root');
+                  if (!isLoggedIn) {
+                    root.innerHTML = `
+                      <div class="auth-buttons">
+                        <a href="/login" class="btn btn-outline">Log In</a>
+                        <a href="/register" class="btn btn-primary">Sign Up</a>
+                      </div>
+                    `;
+                  } else {
+                    root.innerHTML = `
+                      <div class="auth-buttons">
+                        <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+                       
+                      </div>
+                    `;
+                  }
+                </script>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -38,8 +60,13 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
+<<<<<<< HEAD
             <h1>Detect Deep Fake Easily in Seconds</h1>
             <p>Use VeriFake to analyze videos, images, and audio files for authenticity with our cutting-edge AI technology</p>
+=======
+            <h1>Detect Deepfakes, Faces, Offensive Content, and More</h1>
+            <p>VeriFake offers AI-powered detection for Deepfakes, Faces, Weapons/Alcohol/Drugs, Offensive Content, Properties, and Celebrities in your media files.</p>
+>>>>>>> main
             <div class="hero-buttons">
                 <a href="/register" class="btn btn-primary">Get Started</a>
                 <a href="#features" class="btn btn-outline">See Demo</a>
@@ -52,16 +79,28 @@
         <div class="container">
             <div class="section-title">
                 <h2>About VeriFake</h2>
+<<<<<<< HEAD
                 <p>Our mission is to empower individuals and organizations with cutting-edge tools to detect deep fakes</p>
+=======
+                <p>Empowering you with advanced AI tools to detect deepfakes, faces, offensive content, and more.</p>
+>>>>>>> main
             </div>
             <div class="about-content">
                 <div class="about-text">
                     <h3>Our Mission</h3>
+<<<<<<< HEAD
                     <p>In an era where digital content is both ubiquitous and easily manipulated, VeriFake stands as a beacon of truth and authenticity. Our mission is to empower individuals, organizations, and communities with cutting-edge tools to detect and combat the growing threat of deep fakes.</p>
                     <h3>What is VeriFake?</h3>
                     <p>VeriFake is our state-of-the-art AI-driven platform designed to detect deep fake videos, audios, and images with precision and speed. Leveraging the latest advancements in machine learning, neural networks, and media analysis, we offer a powerful solution to identify manipulated media.</p>
                     <h3>Our Technology</h3>
                     <p>At the heart of VeriFake is a robust AI engine trained on vast datasets of authentic and synthetic media. By analyzing minute details such as facial expressions, voice patterns, and pixel-level anomalies, VeriFake can detect even the most subtle deep fakes.</p>
+=======
+                    <p>In a digital world full of manipulated and sensitive content, VeriFake provides robust detection for deepfakes, faces, weapons/alcohol/drugs, offensive material, properties, and celebrities. We help individuals and organizations ensure authenticity and safety in their media.</p>
+                    <h3>What is VeriFake?</h3>
+                    <p>VeriFake is an AI-driven platform designed to analyze videos, images, and audio for a wide range of content, including deepfakes, faces, offensive elements, and more. Our technology delivers fast, accurate, and secure results.</p>
+                    <h3>Our Technology</h3>
+                    <p>Our AI engine is trained on diverse datasets to detect deepfakes, recognize faces and celebrities, identify weapons/alcohol/drugs, flag offensive content, and analyze properties. We use state-of-the-art machine learning and media analysis for reliable detection.</p>
+>>>>>>> main
                 </div>
                 <div class="about-image">
                     <i class="fas fa-brain"></i>
@@ -74,12 +113,18 @@
     <section class="section features" id="features">
         <div class="container">
             <div class="section-title">
+<<<<<<< HEAD
                 <h2>Fantastic Features</h2>
                 <p>Powerful tools to detect and analyze deep fakes across all media formats</p>
+=======
+                <h2>Comprehensive Detection Features</h2>
+                <p>Detect and analyze a wide range of content in your media files</p>
+>>>>>>> main
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
+<<<<<<< HEAD
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>Real-Time Detection</h3>
@@ -124,6 +169,52 @@
             <div class="upload-section">
                 <h2>Analyze Your Media in One Place</h2>
                 <p>Upload videos, audio files, or images to detect deep fakes with our powerful AI technology</p>
+=======
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Deepfake Detection</h3>
+                    <p>Identify manipulated videos and images with advanced deepfake detection algorithms.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Face Detection</h3>
+                    <p>Detect and analyze faces in images and videos for verification and analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Weapons/Alcohol/Drugs</h3>
+                    <p>Automatically flag media containing weapons, alcohol, or drugs to ensure compliance and safety.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>Offensive Content</h3>
+                    <p>Detect and filter offensive or inappropriate content in your media files.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Properties Detection</h3>
+                    <p>Analyze media for property-related content, useful for real estate and asset verification.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Celebrity Recognition</h3>
+                    <p>Identify celebrities in your media using our AI-powered recognition system.</p>
+                </div>
+            </div>
+            <div class="upload-section">
+                <h2>Analyze Your Media for Multiple Content Types</h2>
+                <p>Upload videos, audio files, or images to detect deepfakes, faces, offensive content, and more with our powerful AI technology.</p>
+>>>>>>> main
                 <div class="upload-box">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <h3>Drop your video/audio/picture here</h3>
@@ -166,7 +257,11 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>VeriFake</h3>
+<<<<<<< HEAD
                     <p>The most advanced platform for detecting deep fakes and manipulated media. Join us in the fight against misinformation.</p>
+=======
+                    <p>The most advanced platform for detecting deepfakes, faces, offensive content, and more. Join us in the fight against misinformation and unsafe content.</p>
+>>>>>>> main
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -177,6 +272,7 @@
                 <div class="footer-column">
                     <h3>Features</h3>
                     <ul class="footer-links">
+<<<<<<< HEAD
                         <li><a href="#">Real-Time Detection</a></li>
                         <li><a href="#">Video Analysis</a></li>
                         <li><a href="#">Audio Verification</a></li>
@@ -211,5 +307,22 @@
         </div>
     </footer>
     <script src="integration.js"></script>
+=======
+                        <li><a href="#">Deepfake Detection</a></li>
+                        <li><a href="#">Face Detection</a></li>
+                        <li><a href="#">Weapons/Alcohol/Drugs</a></li>
+                        <li><a href="#">Offensive Content</a></li>
+                        <li><a href="#">Properties Detection</a></li>
+                        <li><a href="#">Celebrity Recognition</a></li>
+                        <li><a href="#">API Integration</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VeriFake Technologies. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+>>>>>>> main
 </body>
 </html>
