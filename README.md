@@ -56,6 +56,7 @@ After cloning you can follow the setup instructions below for each part of the a
    ```
 5. Open the provided URL (usually `http://localhost:5173/landing.html`) to view the landing page. The React app is available under `/login` and other routes.
 
+
 ## Linting
 
 Run ESLint on the frontend with:
@@ -91,3 +92,4 @@ npm run dev
 ```
 
 Browse to `http://localhost:5173/landing.html` for the landing page. The admin dashboard is available at `http://localhost:8000/admin` with the login `admin@example.com` / `password`.
+
