@@ -20,7 +20,11 @@ class AnalysisTile extends StatelessWidget {
               )
             : const Icon(Icons.image),
         title: Text(analysis.service),
-        subtitle: Text(analysis.result.toString()),
+        subtitle: Text(
+          analysis.result['message']?.toString() ??
+              analysis.result['score']?.toString() ??
+              analysis.result.toString(),
+        ),
       ),
     );
   }

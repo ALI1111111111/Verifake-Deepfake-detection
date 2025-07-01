@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme.dart';
 import 'login_page.dart';
 import 'register_page.dart';
 
@@ -12,7 +13,7 @@ class LandingPage extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 28,
-            backgroundColor: Colors.indigo,
+            backgroundColor: primaryColor,
             child: Icon(icon, color: Colors.white),
           ),
           const SizedBox(height: 12),
@@ -156,9 +157,7 @@ class LandingPage extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xff2563eb), Color(0xff8b5cf6)],
-                ),
+                gradient: primaryGradient,
               ),
               child: Column(
                 children: const [

@@ -8,6 +8,7 @@ import '../models/analysis.dart';
 import '../providers/auth_provider.dart';
 import '../services/api_service.dart';
 import '../widgets/analysis_tile.dart';
+import '../theme.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -68,25 +69,35 @@ class _DashboardPageState extends State<DashboardPage> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton(
-              onPressed: loading ? null : _pickAndAnalyze,
-              child: Text(loading ? 'Analyzing...' : 'Upload File'),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ElevatedButton(
+                  onPressed: loading ? null : _pickAndAnalyze,
+                  style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+                  child: Text(loading ? 'Analyzing...' : 'Upload File'),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView(
+                    children: analyses
+                        .map((a) => AnalysisTile(analysis: a))
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView(
-                children: analyses
-                    .map((a) => AnalysisTile(analysis: a))
-                    .toList(),
-              ),
+          ),
+          if (loading)
+            Container(
+              color: Colors.black54,
+              child: const Center(child: CircularProgressIndicator()),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
