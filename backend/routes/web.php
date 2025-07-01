@@ -21,7 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
-use App\Http\Controllers\AdminController;
 
 Route::get('admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'login']);

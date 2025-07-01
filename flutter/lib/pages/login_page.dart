@@ -35,48 +35,56 @@ class _LoginPageState extends State<LoginPage> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                    Text('Welcome Back',
+                      Text(
+                        'Welcome Back',
                         style: Theme.of(context).textTheme.headlineSmall,
-                        textAlign: TextAlign.center),
-                    const SizedBox(height: 20),
-                    TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(labelText: 'Email'),
-                    ),
-                    const SizedBox(height: 12),
-                    TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(labelText: 'Password'),
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: auth.loading
-                          ? null
-                          : () async {
-                              await auth.login(
-                                _emailController.text,
-                                _passwordController.text,
-                              );
-                              if (auth.isAuthenticated && mounted) {
-                                Navigator.pushReplacementNamed(context, '/dashboard');
-                              }
-                            },
-                      style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                      child: Text(auth.loading ? 'Loading...' : 'Log In'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, '/register'),
-                      child: const Text('Create account'),
-                    )
-                  ],
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(labelText: 'Email'),
+                      ),
+                      const SizedBox(height: 12),
+                      TextField(
+                        controller: _passwordController,
+                        decoration:
+                            const InputDecoration(labelText: 'Password'),
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: auth.loading
+                            ? null
+                            : () async {
+                                await auth.login(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
+                                if (auth.isAuthenticated && mounted) {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/main');
+                                }
+                              },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor),
+                        child: Text(auth.loading ? 'Loading...' : 'Log In'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pushReplacementNamed(
+                            context, '/register'),
+                        child: const Text('Create account'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

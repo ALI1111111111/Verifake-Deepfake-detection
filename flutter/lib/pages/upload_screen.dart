@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
 import 'dart:io';
-import 'dart:typed_data';
 import '../providers/auth_provider.dart';
 import '../providers/analysis_provider.dart';
 
