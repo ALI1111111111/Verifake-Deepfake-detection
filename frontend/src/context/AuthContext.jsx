@@ -1,36 +1,38 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import api from '../services/api';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.get('/user')
+        .then((res) => setUser(res.data))
+        .catch(() => toast.error('Failed to load user'));
     } else {
-      delete axios.defaults.headers.common['Authorization'];
+      delete api.defaults.headers.common['Authorization'];
+      setUser(null);
     }
   }, [token]);
 
   const login = async (email, password) => {
     try {
       setLoading(true);
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
-        email,
-        password,
-      });
-      const jwt = response.data.token;
+      const { data } = await api.post('/auth/login', { email, password });
+      const jwt = data.token;
       localStorage.setItem('token', jwt);
       setToken(jwt);
+      setUser(data.user);
+      toast.success('Logged in successfully');
       navigate('/dashboard');
-    } catch (error) {
-      console.error('Login failed:', error);
-      throw error;
     } finally {
       setLoading(false);
     }
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, loading, isAuthenticated: !!token }}>
+    <AuthContext.Provider value={{ token, user, setUser, login, logout, loading, isAuthenticated: !!token }}>
       {children}
     </AuthContext.Provider>
   );
