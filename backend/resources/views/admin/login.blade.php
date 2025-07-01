@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Admin Login</title>
-   
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
 
             @vite(['resources/css/app.css', 'resources/js/app.js'])
 
