@@ -12,6 +12,7 @@ dependencies:
   provider: ^6.0.5
   http: ^1.2.1
   shared_preferences: ^2.2.2
+
   image_picker: ^1.0.7
   dio: ^5.4.0
   flutter_dropzone: ^4.0.1

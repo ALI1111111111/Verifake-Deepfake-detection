@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'services/api_service.dart';
 import 'providers/auth_provider.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF2563EB),
-          fontFamily: 'Poppins',
+          textTheme: GoogleFonts.poppinsTextTheme(),
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+          useMaterial3: true,
         ),
         initialRoute: '/',
         routes: {

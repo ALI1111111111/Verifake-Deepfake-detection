@@ -17,12 +17,10 @@ export default function RegisterPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email || !password || password !== confirm) {
       toast.error('Please fill all fields correctly');
-
       return;
     }
     try {
@@ -36,8 +34,7 @@ export default function RegisterPage() {
   };
 
   return (
-<div className="container">
-
+    <div className="container">
       <div className="brand-section">
         <div className="brand-logo">
           <i className="fas fa-shield-alt" />VeriFake
@@ -126,7 +123,6 @@ export default function RegisterPage() {
             </p>
           </div>
         </div>
-
       </div>
     </div>
   );
