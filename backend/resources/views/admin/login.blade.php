@@ -3,6 +3,10 @@
 <head>
     <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^3.4/dist/tailwind.min.css" rel="stylesheet">
+
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-50">
     <div class="bg-white p-6 rounded shadow w-full max-w-sm">

@@ -10,7 +10,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/landing.html" replace />} />
+<Route path="/" element={<Navigate to="/landing.html" replace />} />
+
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route element={<ProtectedRoute />}>

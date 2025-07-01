@@ -1,0 +1,78 @@
+.profile-main {
+  width: 100vw;
+  min-height: 100vh;
+  padding-top: 72px;
+  background: #fff;
+  color: #111;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+.profile-section {
+  max-width: 460px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 16px rgba(60,60,60,0.06);
+  padding: 32px 28px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.profile-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.profile-usage {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.profile-form label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 7px;
+  display: block;
+  letter-spacing: 0.01em;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  margin-bottom: 13px;
+  transition: border-color 0.2s;
+}
+.profile-form input:focus {
+  border-color: #111;
+  outline: none;
+}
+
+.profile-form .profile-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 11px 0;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.16s;
+}
+.profile-form .profile-btn:hover,
+.profile-form .profile-btn:focus {
+  background: #222;
+}
