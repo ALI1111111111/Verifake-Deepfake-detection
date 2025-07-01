@@ -12,6 +12,7 @@ export default function LoginPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -21,12 +22,13 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch {
-      // handled by interceptor
+
     }
   };
 
   return (
-    <div className="container">
+ <div className="container">
+
       <div className="brand-section">
         <div className="brand-logo">
           <i className="fas fa-shield-alt" />VeriFake
@@ -104,6 +106,7 @@ export default function LoginPage() {
             </p>
           </div>
         </div>
+
       </div>
     </div>
   );
