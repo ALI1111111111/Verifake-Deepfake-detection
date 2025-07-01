@@ -1,0 +1,18 @@
+name: deepfake_mobile
+description: Flutter client for the Deepfake Detection MVP
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.0.5
+  http: ^1.2.1
+  file_picker: ^6.1.1
+  shared_preferences: ^2.2.2
+
+flutter:
+  uses-material-design: true
