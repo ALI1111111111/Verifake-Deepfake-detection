@@ -13,9 +13,14 @@ class ResultsMobileScreen extends StatefulWidget {
   State<ResultsMobileScreen> createState() => _ResultsMobileScreenState();
 }
 
-class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
+class _ResultsMobileScreenState extends State<ResultsMobileScreen>
+    with AutomaticKeepAliveClientMixin {
   String _searchQuery = '';
   String _filterService = 'all';
+  bool _isDisposed = false;
+
+  @override
+  bool get wantKeepAlive => true;
 
   final List<String> _services = [
     'all',
@@ -31,15 +36,31 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final auth = context.read<AuthProvider>();
-      if (auth.isAuthenticated) {
-        context.read<AnalysisProvider>().loadAnalyses();
+      if (!_isDisposed) {
+        final auth = context.read<AuthProvider>();
+        final analysis = context.read<AnalysisProvider>();
+        if (auth.isAuthenticated) {
+          analysis.loadAnalyses(auth.token);
+        }
       }
     });
   }
 
   @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
+  }
+
+  void _safeSetState(VoidCallback fn) {
+    if (!_isDisposed && mounted) {
+      setState(fn);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
     final auth = context.watch<AuthProvider>();
     final analysis = context.watch<AnalysisProvider>();
 
@@ -56,7 +77,7 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              analysis.loadAnalyses();
+              analysis.loadAnalyses(auth.token);
             },
             icon: const Icon(Icons.refresh),
           ),
@@ -96,7 +117,7 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
                       ),
                       child: TextField(
                         onChanged: (value) {
-                          setState(() {
+                          _safeSetState(() {
                             _searchQuery = value;
                           });
                         },
@@ -123,12 +144,13 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
                           final service = _services[index];
                           final isSelected = _filterService == service;
 
-                          return GestureDetector(
+                          return InkWell(
                             onTap: () {
-                              setState(() {
+                              _safeSetState(() {
                                 _filterService = service;
                               });
                             },
+                            borderRadius: BorderRadius.circular(20),
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
                               margin: const EdgeInsets.only(right: 8),
@@ -301,7 +323,10 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () => analysis.loadAnalyses(),
+                  onPressed: () {
+                    final auth = context.read<AuthProvider>();
+                    analysis.loadAnalyses(auth.token);
+                  },
                   child: const Text('Retry'),
                 ),
               ],
@@ -401,27 +426,38 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: _getServiceColor(analysis.service),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    analysis.service.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                Flexible(
+                  flex: 2,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: _getServiceColor(analysis.service),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      analysis.service.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
-                Text(
-                  analysis.formattedDate,
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12,
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    analysis.formattedDate,
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.end,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
@@ -444,19 +480,68 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
                       child: Image.network(
                         analysis.fileUrl,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
                           return Container(
                             color: Colors.grey[200],
                             child: const Center(
-                              child: Icon(
-                                Icons.broken_image,
-                                color: Colors.grey,
-                                size: 32,
-                              ),
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey[200],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.broken_image,
+                                  color: Colors.grey,
+                                  size: 32,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'Image unavailable',
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         },
                       ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ] else ...[
+                  // Show placeholder when no image URL
+                  Container(
+                    height: 120,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.image_not_supported,
+                          color: Colors.grey[400],
+                          size: 32,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'No preview available',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -489,6 +574,9 @@ class _ResultsMobileScreenState extends State<ResultsMobileScreen> {
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF2D3748),
                         ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
                       ),
                     ],
                   ),

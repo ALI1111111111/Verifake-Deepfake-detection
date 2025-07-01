@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.onTabSwitch});
+
+  final Function(int)? onTabSwitch;
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +115,12 @@ class HomeScreen extends StatelessWidget {
                                 subtitle: 'Analyze media',
                                 color: const Color(0xFF667eea),
                                 onTap: () {
-                                  // Switch to upload tab
-                                  // This will be handled by the main screen
+                                  if (auth.isAuthenticated) {
+                                    onTabSwitch
+                                        ?.call(1); // Switch to upload tab
+                                  } else {
+                                    Navigator.pushNamed(context, '/login');
+                                  }
                                 },
                               ),
                             ),
@@ -128,7 +134,8 @@ class HomeScreen extends StatelessWidget {
                                 color: const Color(0xFF764ba2),
                                 onTap: () {
                                   if (auth.isAuthenticated) {
-                                    // Switch to results tab
+                                    onTabSwitch
+                                        ?.call(2); // Switch to results tab
                                   } else {
                                     Navigator.pushNamed(context, '/login');
                                   }

@@ -265,7 +265,7 @@ class _LoginPageMobileState extends State<LoginPageMobile> {
                   child: Center(
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/main');
+                        Navigator.pushReplacementNamed(context, '/guest');
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(

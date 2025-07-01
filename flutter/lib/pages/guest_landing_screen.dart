@@ -137,28 +137,32 @@ class GuestLandingScreen extends StatelessWidget {
                       _buildFeatureCard(
                         icon: Icons.image,
                         title: 'Image Analysis',
-                        description: 'Upload and analyze images for deepfake detection with high accuracy',
+                        description:
+                            'Upload and analyze images for deepfake detection with high accuracy',
                         color: const Color(0xFF10b981),
                       ),
                       const SizedBox(height: 16),
                       _buildFeatureCard(
                         icon: Icons.video_file,
                         title: 'Video Detection',
-                        description: 'Analyze video files frame by frame for comprehensive deepfake detection',
+                        description:
+                            'Analyze video files frame by frame for comprehensive deepfake detection',
                         color: const Color(0xFF3b82f6),
                       ),
                       const SizedBox(height: 16),
                       _buildFeatureCard(
                         icon: Icons.speed,
                         title: 'Real-time Results',
-                        description: 'Get instant analysis results with detailed confidence scores',
+                        description:
+                            'Get instant analysis results with detailed confidence scores',
                         color: const Color(0xFFf59e0b),
                       ),
                       const SizedBox(height: 16),
                       _buildFeatureCard(
                         icon: Icons.history,
                         title: 'Analysis History',
-                        description: 'Keep track of all your analyses and results (Login required)',
+                        description:
+                            'Keep track of all your analyses and results (Login required)',
                         color: const Color(0xFF8b5cf6),
                         requiresLogin: true,
                       ),
@@ -209,7 +213,7 @@ class GuestLandingScreen extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/main');
+                              _showLoginPrompt(context);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF667eea),
@@ -280,8 +284,10 @@ class GuestLandingScreen extends StatelessWidget {
                                   Navigator.pushNamed(context, '/login');
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: Color(0xFF667eea)),
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                  side: const BorderSide(
+                                      color: Color(0xFF667eea)),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -304,7 +310,8 @@ class GuestLandingScreen extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF667eea),
                                   foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -416,6 +423,35 @@ class GuestLandingScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _showLoginPrompt(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Login Required'),
+          content: const Text(
+            'You need to create an account or sign in to use the deepfake detection features.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/login');
+              },
+              child: const Text('Sign In'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -142,7 +142,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         delay: const Duration(milliseconds: 600),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/main');
+                            Navigator.pushReplacementNamed(context, '/guest');
                           },
                           child: Text(
                             'Continue as Guest',

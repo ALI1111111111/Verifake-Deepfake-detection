@@ -20,12 +20,12 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    
+
     _logoController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _textController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
@@ -47,20 +47,21 @@ class _SplashScreenState extends State<SplashScreen>
   void _startAnimations() async {
     await Future.delayed(const Duration(milliseconds: 500));
     _logoController.forward();
-    
+
     await Future.delayed(const Duration(milliseconds: 800));
     _textController.forward();
-    
+
     await Future.delayed(const Duration(milliseconds: 2000));
     _checkAuthAndNavigate();
   }
 
   void _checkAuthAndNavigate() async {
     final auth = context.read<AuthProvider>();
-    await Future.delayed(const Duration(milliseconds: 1000)); // Minimum splash time
-    
+    await Future.delayed(
+        const Duration(milliseconds: 1000)); // Minimum splash time
+
     if (!mounted) return;
-    
+
     if (auth.isAuthenticated) {
       Navigator.pushReplacementNamed(context, '/main');
     } else {
@@ -120,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
               const SizedBox(height: 40),
-              
+
               // Animated Text
               FadeTransition(
                 opacity: _textAnimation,
@@ -153,9 +154,9 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 60),
-              
+
               // Loading Animation
               FadeInUp(
                 delay: const Duration(milliseconds: 2000),

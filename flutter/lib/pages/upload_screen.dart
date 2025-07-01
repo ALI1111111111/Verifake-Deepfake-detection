@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
 import 'dart:io';
+import 'dart:typed_data';
 import '../providers/auth_provider.dart';
 import '../providers/analysis_provider.dart';
 
 class UploadScreen extends StatefulWidget {
-  const UploadScreen({super.key});
+  const UploadScreen({super.key, this.onAnalysisComplete});
+
+  final VoidCallback? onAnalysisComplete;
 
   @override
   State<UploadScreen> createState() => _UploadScreenState();
@@ -16,6 +20,8 @@ class UploadScreen extends StatefulWidget {
 class _UploadScreenState extends State<UploadScreen>
     with TickerProviderStateMixin {
   File? _selectedFile;
+  String? _selectedFileName;
+  Uint8List? _selectedFileBytes;
   String _selectedService = 'deepfake';
   bool _isUploading = false;
   double _uploadProgress = 0.0;
@@ -108,7 +114,8 @@ class _UploadScreenState extends State<UploadScreen>
                     child: Column(
                       children: [
                         _buildUploadArea(),
-                        if (_selectedFile != null) _buildFilePreview(),
+                        if (_selectedFile != null || _selectedFileBytes != null)
+                          _buildFilePreview(),
                       ],
                     ),
                   ),
@@ -147,11 +154,15 @@ class _UploadScreenState extends State<UploadScreen>
                       animation: _pulseAnimation,
                       builder: (context, child) {
                         return Transform.scale(
-                          scale: _selectedFile != null && !_isUploading
+                          scale: (_selectedFile != null ||
+                                      _selectedFileBytes != null) &&
+                                  !_isUploading
                               ? _pulseAnimation.value
                               : 1.0,
                           child: ElevatedButton(
-                            onPressed: _selectedFile != null && !_isUploading
+                            onPressed: (_selectedFile != null ||
+                                        _selectedFileBytes != null) &&
+                                    !_isUploading
                                 ? _analyzeFile
                                 : null,
                             style: ElevatedButton.styleFrom(
@@ -161,7 +172,10 @@ class _UploadScreenState extends State<UploadScreen>
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              elevation: _selectedFile != null ? 8 : 2,
+                              elevation: (_selectedFile != null ||
+                                      _selectedFileBytes != null)
+                                  ? 8
+                                  : 2,
                             ),
                             child: _isUploading
                                 ? Row(
@@ -258,7 +272,7 @@ class _UploadScreenState extends State<UploadScreen>
             ),
             const SizedBox(height: 20),
             const Text(
-              'Tap to upload file',
+              'Tap to select image',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -267,7 +281,7 @@ class _UploadScreenState extends State<UploadScreen>
             ),
             const SizedBox(height: 8),
             Text(
-              'Supports images, videos, and audio files',
+              'Take a photo or choose from gallery',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -287,52 +301,190 @@ class _UploadScreenState extends State<UploadScreen>
         color: const Color(0xFF667eea).withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
+      child: Column(
         children: [
+          // Image Preview
           Container(
-            width: 50,
-            height: 50,
+            width: double.infinity,
+            height: 200,
             decoration: BoxDecoration(
-              color: const Color(0xFF667eea),
               borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: const Color(0xFF667eea).withOpacity(0.3),
+                width: 2,
+              ),
             ),
-            child: const Icon(
-              Icons.insert_drive_file,
-              color: Colors.white,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: _selectedFile != null
+                  ? Image.file(
+                      _selectedFile!,
+                      fit: BoxFit.cover,
+                      frameBuilder:
+                          (context, child, frame, wasSynchronouslyLoaded) {
+                        if (wasSynchronouslyLoaded || frame != null) {
+                          return child;
+                        }
+                        return Container(
+                          color: Colors.grey[200],
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey[200],
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.broken_image,
+                                  size: 50,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Failed to load image',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  : _selectedFileBytes != null
+                      ? Image.memory(
+                          _selectedFileBytes!,
+                          fit: BoxFit.cover,
+                          frameBuilder:
+                              (context, child, frame, wasSynchronouslyLoaded) {
+                            if (wasSynchronouslyLoaded || frame != null) {
+                              return child;
+                            }
+                            return Container(
+                              color: Colors.grey[200],
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey[200],
+                              child: const Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.broken_image,
+                                      size: 50,
+                                      color: Colors.grey,
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'Failed to load image',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : Container(
+                          color: Colors.grey[200],
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.image,
+                                  size: 50,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'No image selected',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _selectedFile!.path.split('/').last,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2D3748),
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+          const SizedBox(height: 16),
+          // File Info
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF667eea),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  '${(_selectedFile!.lengthSync() / 1024 / 1024).toStringAsFixed(2)} MB',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                  ),
+                child: const Icon(
+                  Icons.image,
+                  color: Colors.white,
+                  size: 20,
                 ),
-              ],
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _selectedFile = null;
-              });
-            },
-            icon: const Icon(Icons.close, color: Colors.red),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _selectedFileName ??
+                          _selectedFile?.path.split('/').last ??
+                          'Unknown file',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2D3748),
+                        fontSize: 14,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      _selectedFile != null
+                          ? '${(_selectedFile!.lengthSync() / 1024 / 1024).toStringAsFixed(2)} MB'
+                          : _selectedFileBytes != null
+                              ? '${(_selectedFileBytes!.length / 1024 / 1024).toStringAsFixed(2)} MB'
+                              : 'Unknown size',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedFile = null;
+                    _selectedFileBytes = null;
+                    _selectedFileName = null;
+                  });
+                },
+                icon: const Icon(Icons.close, color: Colors.red),
+              ),
+            ],
           ),
         ],
       ),
@@ -475,24 +627,56 @@ class _UploadScreenState extends State<UploadScreen>
 
   Future<void> _pickFile() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: [
-          'jpg',
-          'jpeg',
-          'png',
-          'mp4',
-          'avi',
-          'mov',
-          'mp3',
-          'wav'
-        ],
+      // Show dialog to choose between camera and gallery
+      final ImageSource? source = await showModalBottomSheet<ImageSource>(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Wrap(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Choose from Gallery'),
+                  onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.photo_camera),
+                  title: const Text('Take Photo'),
+                  onTap: () => Navigator.of(context).pop(ImageSource.camera),
+                ),
+              ],
+            ),
+          );
+        },
       );
 
-      if (result != null && result.files.single.path != null) {
-        setState(() {
-          _selectedFile = File(result.files.single.path!);
-        });
+      if (source != null) {
+        final ImagePicker picker = ImagePicker();
+        final XFile? image = await picker.pickImage(
+          source: source,
+          maxWidth: 1920,
+          maxHeight: 1080,
+          imageQuality: 85,
+        );
+
+        if (image != null) {
+          if (kIsWeb) {
+            // Web handling
+            final bytes = await image.readAsBytes();
+            setState(() {
+              _selectedFile = null;
+              _selectedFileName = image.name;
+              _selectedFileBytes = bytes;
+            });
+          } else {
+            // Mobile handling
+            setState(() {
+              _selectedFile = File(image.path);
+              _selectedFileName = image.name;
+              _selectedFileBytes = null;
+            });
+          }
+        }
       }
     } catch (e) {
       _showSnackBar('Error picking file: $e', isError: true);
@@ -500,7 +684,7 @@ class _UploadScreenState extends State<UploadScreen>
   }
 
   Future<void> _analyzeFile() async {
-    if (_selectedFile == null) return;
+    if (_selectedFile == null && _selectedFileBytes == null) return;
 
     final auth = context.read<AuthProvider>();
     final analysis = context.read<AnalysisProvider>();
@@ -524,12 +708,29 @@ class _UploadScreenState extends State<UploadScreen>
         await Future.delayed(const Duration(milliseconds: 200));
       }
 
-      await analysis.analyzeFile(_selectedFile!, _selectedService);
+      final result = await analysis.analyzeFileData(
+        file: _selectedFile,
+        fileBytes: _selectedFileBytes,
+        fileName: _selectedFileName ?? 'unknown',
+        service: _selectedService,
+        token: auth.token!,
+      );
 
-      _showSnackBar('Analysis completed successfully!');
+      if (result != null) {
+        _showSnackBar('Analysis completed successfully!');
+
+        // Call the callback to switch to results tab
+        if (widget.onAnalysisComplete != null) {
+          widget.onAnalysisComplete!();
+        }
+      } else {
+        _showSnackBar('Analysis failed: No result returned', isError: true);
+      }
 
       setState(() {
         _selectedFile = null;
+        _selectedFileBytes = null;
+        _selectedFileName = null;
         _isUploading = false;
         _uploadProgress = 0.0;
       });

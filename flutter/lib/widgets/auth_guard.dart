@@ -17,9 +17,9 @@ class AuthGuard extends StatelessWidget {
         if (auth.isAuthenticated) {
           return child;
         } else {
-          // Redirect to login page if not authenticated
+          // Redirect to auth page if not authenticated
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pushReplacementNamed('/login');
+            Navigator.of(context).pushReplacementNamed('/auth');
           });
           return const Scaffold(
             body: Center(
@@ -45,9 +45,9 @@ class GuestGuard extends StatelessWidget {
         if (!auth.isAuthenticated) {
           return child;
         } else {
-          // Redirect to dashboard if already authenticated
+          // Redirect to main screen if already authenticated
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pushReplacementNamed('/dashboard');
+            Navigator.of(context).pushReplacementNamed('/main');
           });
           return const Scaffold(
             body: Center(

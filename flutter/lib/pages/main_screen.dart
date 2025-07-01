@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
 import '../providers/auth_provider.dart';
+import '../providers/analysis_provider.dart';
 import '../pages/home_screen.dart';
 import '../pages/upload_screen.dart';
 import '../pages/results_mobile_screen.dart';
@@ -18,12 +19,41 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const UploadScreen(),
-    const ResultsMobileScreen(),
-    const ProfileMobileScreen(),
-  ];
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      HomeScreen(onTabSwitch: _switchToTab),
+      UploadScreen(
+          onAnalysisComplete: () => _switchToTab(2)), // Switch to results tab
+      const ResultsMobileScreen(),
+      const ProfileMobileScreen(),
+    ];
+  }
+
+  void _switchToTab(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+
+    // Refresh results when switching to results tab
+    if (index == 2) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final auth = context.read<AuthProvider>();
+        final analysis = context.read<AnalysisProvider>();
+        if (auth.isAuthenticated) {
+          analysis.loadAnalyses(auth.token);
+        }
+      });
+    }
+  }
 
   @override
   void dispose() {
