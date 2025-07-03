@@ -1,17 +1,129 @@
-# 🧪 Jest Testing Suite for Deepfake Detection Application
+# Jest Testing Suite - VeriFake Deepfake Detection
 
-A comprehensive unit and integration testing suite built with Jest, React Testing Library, and custom testing utilities for the Deepfake Detection web application.
+## 🎯 Overview
+Comprehensive unit and integration testing suite for the Deepfake Detection application built with Jest, React Testing Library, and custom testing utilities. This suite ensures code quality, reliability, and maintains high test coverage across all application components.
 
-## 📋 Table of Contents
+## � Tech Stack
+- **Testing Framework**: Jest 29+
+- **React Testing**: React Testing Library
+- **Mocking**: Jest mocks + MSW (Mock Service Worker)
+- **Coverage**: Istanbul
+- **Assertions**: Jest matchers + Custom matchers
+- **Environment**: jsdom (browser simulation)
 
-- [Quick Start](#-quick-start)
-- [Project Structure](#-project-structure)
-- [Available Commands](#-available-commands)
-- [Test Categories](#-test-categories)
-- [Writing Tests](#-writing-tests)
-- [Best Practices](#-best-practices)
-- [Troubleshooting](#-troubleshooting)
-- [Configuration](#-configuration)
+## 📁 Project Structure
+```
+jest/
+├── __tests__/
+│   ├── components/            # Component unit tests
+│   │   ├── auth/             # Authentication components
+│   │   ├── dashboard/        # Dashboard components
+│   │   ├── ui/               # UI components
+│   │   └── common/           # Shared components
+│   ├── pages/                # Page component tests
+│   │   ├── LoginPage.test.js
+│   │   ├── Dashboard.test.js
+│   │   └── ResultsPage.test.js
+│   ├── services/             # Service layer tests
+│   │   ├── api.test.js
+│   │   ├── auth.test.js
+│   │   └── analysis.test.js
+│   ├── hooks/                # Custom hooks tests
+│   │   ├── useAuth.test.js
+│   │   └── useFileUpload.test.js
+│   ├── utils/                # Utility function tests
+│   │   ├── validation.test.js
+│   │   └── helpers.test.js
+│   └── integration/          # Integration tests
+│       ├── auth-flow.test.js
+│       └── upload-flow.test.js
+├── __mocks__/                # Mock implementations
+│   ├── api/                  # API mocks
+│   ├── components/           # Component mocks
+│   └── services/             # Service mocks
+├── coverage/                 # Coverage reports
+├── setupTests.js            # Test environment setup
+├── jest.config.js           # Jest configuration
+└── package.json             # Dependencies & scripts
+```
+
+## 🔧 Setup Instructions
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Installation
+```bash
+# Navigate to jest directory
+cd jest
+
+# Install dependencies
+npm install
+
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+
+# Run specific test suite
+npm run test:components
+npm run test:services
+npm run test:integration
+```
+
+## ⚙️ Configuration
+
+### Jest Configuration (`jest.config.js`)
+```javascript
+module.exports = {
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
+  moduleNameMapping: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx}',
+    '!src/index.js',
+    '!src/reportWebVitals.js'
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80
+    }
+  },
+  testMatch: [
+    '**/__tests__/**/*.(test|spec).{js,jsx}',
+    '**/*.(test|spec).{js,jsx}'
+  ]
+};
+```
+
+### Test Environment Setup (`setupTests.js`)
+```javascript
+import '@testing-library/jest-dom';
+import { server } from './__mocks__/server';
+
+// MSW server setup
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+// Global test utilities
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
+```
 
 ## 🚀 Quick Start
 
