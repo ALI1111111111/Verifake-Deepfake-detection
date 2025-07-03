@@ -15,7 +15,7 @@ import 'pages/guest_landing_screen.dart';
 import 'widgets/auth_guard.dart';
 
 void main() {
-  final api = ApiService('http://localhost:8001/api');
+  final api = ApiService('http://127.0.0.1:8001/api');
   runApp(MyApp(api: api));
 }
 

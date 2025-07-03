@@ -1,0 +1,76 @@
+{
+  "testFiles": {
+    "validImage": {
+      "name": "test-image.jpg",
+      "type": "image/jpeg",
+      "size": 1024000
+    },
+    "validVideo": {
+      "name": "test-video.mp4",
+      "type": "video/mp4",
+      "size": 5120000
+    },
+    "validAudio": {
+      "name": "test-audio.mp3",
+      "type": "audio/mpeg",
+      "size": 2048000
+    },
+    "invalidFile": {
+      "name": "test-document.pdf",
+      "type": "application/pdf",
+      "size": 1024000
+    },
+    "oversizedFile": {
+      "name": "large-image.jpg",
+      "type": "image/jpeg",
+      "size": 52428800
+    }
+  },
+  "services": [
+    {
+      "id": "deepfake",
+      "name": "Deepfake Detection",
+      "description": "Detect deepfake content in images and videos"
+    },
+    {
+      "id": "face",
+      "name": "Face Attributes",
+      "description": "Analyze facial attributes and features"
+    },
+    {
+      "id": "wad",
+      "name": "Weapons and Drugs",
+      "description": "Detect weapons and drugs in content"
+    },
+    {
+      "id": "offensive",
+      "name": "Offensive Content",
+      "description": "Detect offensive or inappropriate content"
+    },
+    {
+      "id": "properties",
+      "name": "Image Properties",
+      "description": "Analyze technical properties of images"
+    },
+    {
+      "id": "celebrity",
+      "name": "Celebrity Recognition",
+      "description": "Identify celebrities in content"
+    }
+  ],
+  "expectedResults": {
+    "deepfake": {
+      "prob": 0.02,
+      "confidence": "high"
+    },
+    "face": {
+      "attributes": {
+        "age": {
+          "min": 25,
+          "max": 35
+        },
+        "gender": "female"
+      }
+    }
+  }
+}

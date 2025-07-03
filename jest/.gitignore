@@ -1,0 +1,83 @@
+# ===================================
+# Jest Testing .gitignore
+# Unit & Integration Testing
+# ===================================
+
+# ===== JEST SPECIFIC =====
+# Coverage reports
+coverage/
+lcov-report/
+*.lcov
+.nyc_output/
+
+# Test results
+test-results/
+junit.xml
+test-report.html
+jest-results/
+
+# Snapshots (keep tracked but ignore auto-generated)
+__tests__/__snapshots__/*.snap.js
+**/__snapshots__/*.temp.snap
+
+# ===== NODE.JS =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Package files
+package-lock.json
+yarn.lock
+
+# ===== ENVIRONMENT =====
+.env
+.env.test
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ===== CACHE =====
+.cache/
+.jest-cache/
+jest-cache/
+
+# ===== LOGS =====
+*.log
+debug.log
+test.log
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== TEMPORARY =====
+*.tmp
+*.temp
+.tmp/
+temp/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# ===== MOCK DATA =====
+# Keep example mocks but ignore generated test data
+test-data/
+mock-uploads/
+temp-assets/
+
+# Configuration backups
+jest.config.backup.js
+*.config.bak
+
+# ===== BUILD =====
+dist/
+build/
+lib/

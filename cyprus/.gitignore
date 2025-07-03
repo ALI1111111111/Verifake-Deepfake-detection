@@ -1,0 +1,73 @@
+# ===================================
+# Cyprus (Cypress) .gitignore
+# E2E Testing Directory
+# ===================================
+
+# ===== CYPRESS SPECIFIC =====
+# Test artifacts
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+cypress/fixtures/downloads/
+
+# Test results and reports
+results/
+cypress-results/
+mochawesome-report/
+junit-results/
+test-results/
+coverage/
+
+# ===== NODE.JS =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Package files
+package-lock.json
+yarn.lock
+
+# ===== ENVIRONMENT =====
+.env
+.env.local
+.env.test
+cypress.env.json
+
+# ===== CACHE =====
+.cache/
+.nyc_output/
+.cypress/
+
+# ===== LOGS =====
+*.log
+cypress/logs/
+debug.log
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== TEMPORARY =====
+*.tmp
+*.temp
+.tmp/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# ===== CUSTOM =====
+# Keep example files but ignore actual test data
+test-data/
+actual-uploads/
+temp-files/
+
+# Configuration backups
+cypress.config.backup.js
+*.config.bak

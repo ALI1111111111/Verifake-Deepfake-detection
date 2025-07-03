@@ -43,13 +43,13 @@ After cloning you can follow the setup instructions below for each part of the a
    ```bash
    php artisan serve
    ```
-   The API will be available at `http://localhost:8000`.
+   The API will be available at `http://127.0.0.1:8001/`.
 
 ## Frontend Setup
 
 1. `cd frontend`
 2. Run `npm install`
-3. Copy `.env.example` to `.env` and ensure `VITE_API_BASE_URL` points to your Laravel server (default is `http://localhost:8000/api`)
+3. Copy `.env.example` to `.env` and ensure `VITE_API_BASE_URL` points to your Laravel server (default is `http://127.0.0.1:8001/api`)
 4. Start the Vite dev server:
    ```bash
    npm run dev
@@ -66,7 +66,7 @@ npm run lint
 ## Notes
 
 Backend tests and migrations may require additional setup if PHP is not installed locally. Sightengine API calls need valid credentials.
-The database seeders create an admin account with email `admin@example.com` and password `password`. Access the admin dashboard at `http://localhost:8000/admin`.
+The database seeders create an admin account with email `admin@example.com` and password `password`. Access the admin dashboard at `http://127.0.0.1:8001/admin`.
 From the Users page in the dashboard you can adjust the API request limit for each account.
 
 ## Quick Start
@@ -90,4 +90,4 @@ cp .env.example .env
 npm run dev
 ```
 
-Browse to `http://localhost:5173/landing.html` for the landing page. The admin dashboard is available at `http://localhost:8000/admin` with the login `admin@example.com` / `password`.
+Browse to `http://localhost:5173/landing.html` for the landing page. The admin dashboard is available at `http://127.0.0.1:8001/admin` with the login `admin@example.com` / `password`.

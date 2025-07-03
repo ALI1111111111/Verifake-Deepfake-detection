@@ -1,3 +1,91 @@
+# ===================================
+# Flutter .gitignore
+# Mobile App Development
+# ===================================
+
+# ===== FLUTTER/DART SPECIFIC =====
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+.packages
+.pub-cache/
+.pub/
+/build/
+flutter_*.png
+linked_*.ds
+unlinked.ds
+unlinked_spec.ds
+
+# Coverage
+coverage/
+lcov.info
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# ===== PLATFORM SPECIFIC =====
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+/android/.gradle/
+/android/captures/
+/android/gradlew
+/android/gradlew.bat
+/android/local.properties
+/android/*.iml
+/android/gradle-wrapper.jar
+/android/.gradletasknamecache
+
+# iOS
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/Pods/
+/ios/.symlinks/
+/ios/Runner.xcworkspace/
+/ios/ServiceDefinitions.json
+/ios/Runner/GeneratedPluginRegistrant.*
+
+# Web
+/web/icons/Icon-192.png
+/web/icons/Icon-512.png
+/web/icons/Icon-maskable-192.png
+/web/icons/Icon-maskable-512.png
+
+# Windows
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugin_registrant.h
+
+# Linux
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+
+# macOS
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# ===== IDE RELATED =====
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Android Studio
+.navigation/
+captures/
+
+# ===== GENERAL =====
 # Miscellaneous
 *.class
 *.log
@@ -12,34 +100,24 @@
 .swiftpm/
 migrate_working_dir/
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# Environment
+.env
+.env.local
+.env.development
+.env.production
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# Testing
+test/.test_coverage.dart
+integration_test/screenshots/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+# Temporary
+*.tmp
+*.temp
+.tmp/
 
-# Symbolication related
-app.*.symbols
+# Logs
+logs/
+*.log
 
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Dependency directories
+node_modules/

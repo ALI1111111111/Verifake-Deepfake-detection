@@ -26,7 +26,7 @@ class Analysis {
   String get fileUrl {
     if (filePath.isEmpty) return '';
     // Construct the full URL to the file
-    const baseUrl = 'http://localhost:8001'; // Fixed port to match API
+    const baseUrl = 'http://127.0.0.1:8001/'; // Fixed port to match API
     return '$baseUrl/storage/$filePath';
   }
 

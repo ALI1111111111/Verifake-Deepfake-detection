@@ -1,0 +1,66 @@
+{
+  "validUser": {
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "password123"
+  },
+  "adminUser": {
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "password": "admin123"
+  },
+  "invalidUsers": [
+    {
+      "name": "",
+      "email": "invalid@example.com",
+      "password": "password123",
+      "error": "Name is required"
+    },
+    {
+      "name": "Test User",
+      "email": "invalid-email",
+      "password": "password123",
+      "error": "Invalid email format"
+    },
+    {
+      "name": "Test User",
+      "email": "test@example.com",
+      "password": "12345",
+      "error": "Password must be at least 6 characters"
+    },
+    {
+      "name": "Test User",
+      "email": "existing@example.com",
+      "password": "password123",
+      "error": "Email already exists"
+    }
+  ],
+  "loginCredentials": {
+    "valid": {
+      "email": "test@example.com",
+      "password": "password123"
+    },
+    "invalid": [
+      {
+        "email": "nonexistent@example.com",
+        "password": "password123",
+        "error": "Invalid credentials"
+      },
+      {
+        "email": "test@example.com",
+        "password": "wrongpassword",
+        "error": "Invalid credentials"
+      },
+      {
+        "email": "",
+        "password": "password123",
+        "error": "Email is required"
+      },
+      {
+        "email": "test@example.com",
+        "password": "",
+        "error": "Password is required"
+      }
+    ]
+  }
+}

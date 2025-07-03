@@ -70,7 +70,7 @@ void _switchToTab(int index) {
 // Fixed API base URL
 String get fileUrl {
   if (filePath.isEmpty) return '';
-  const baseUrl = 'http://localhost:8001'; // Fixed port
+  const baseUrl = 'http://127.0.0.1:8001/'; // Fixed port
   return '$baseUrl/storage/$filePath';
 }
 ```

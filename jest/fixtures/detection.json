@@ -1,0 +1,195 @@
+{
+  "services": [
+    {
+      "name": "deepfake",
+      "label": "Deepfake Detection",
+      "description": "Detect if the image/video has been artificially generated or manipulated",
+      "supportedTypes": ["image/jpeg", "image/png", "video/mp4"],
+      "maxFileSize": 10485760
+    },
+    {
+      "name": "face",
+      "label": "Face Detection",
+      "description": "Detect and analyze faces in images",
+      "supportedTypes": ["image/jpeg", "image/png"],
+      "maxFileSize": 5242880
+    },
+    {
+      "name": "wad",
+      "label": "Weapon Detection",
+      "description": "Detect weapons and dangerous objects in images",
+      "supportedTypes": ["image/jpeg", "image/png"],
+      "maxFileSize": 5242880
+    },
+    {
+      "name": "offensive",
+      "label": "Offensive Content",
+      "description": "Detect offensive or inappropriate content",
+      "supportedTypes": ["image/jpeg", "image/png"],
+      "maxFileSize": 5242880
+    },
+    {
+      "name": "properties",
+      "label": "Image Properties",
+      "description": "Analyze technical properties of images",
+      "supportedTypes": ["image/jpeg", "image/png"],
+      "maxFileSize": 5242880
+    },
+    {
+      "name": "celebrity",
+      "label": "Celebrity Recognition",
+      "description": "Identify celebrities in images",
+      "supportedTypes": ["image/jpeg", "image/png"],
+      "maxFileSize": 5242880
+    }
+  ],
+  "sampleAnalyses": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "file_name": "test-image-1.jpg",
+      "file_path": "/storage/uploads/test-image-1.jpg",
+      "service": "deepfake",
+      "status": "completed",
+      "result": {
+        "confidence": 0.85,
+        "prediction": "real",
+        "analysis_time": 1.23,
+        "details": {
+          "artifacts_detected": false,
+          "face_consistency": 0.92,
+          "temporal_consistency": 0.88
+        }
+      },
+      "created_at": "2025-01-01T00:00:00.000000Z",
+      "updated_at": "2025-01-01T00:00:00.000000Z"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "file_name": "test-image-2.jpg",
+      "file_path": "/storage/uploads/test-image-2.jpg",
+      "service": "face",
+      "status": "completed",
+      "result": {
+        "faces_detected": 2,
+        "analysis_time": 0.85,
+        "faces": [
+          {
+            "bbox": [100, 100, 50, 60],
+            "confidence": 0.95,
+            "emotions": {
+              "happy": 0.7,
+              "neutral": 0.2,
+              "sad": 0.1
+            },
+            "age": 28,
+            "gender": "female"
+          },
+          {
+            "bbox": [200, 120, 45, 55],
+            "confidence": 0.92,
+            "emotions": {
+              "happy": 0.6,
+              "neutral": 0.3,
+              "surprised": 0.1
+            },
+            "age": 32,
+            "gender": "male"
+          }
+        ]
+      },
+      "created_at": "2025-01-01T01:00:00.000000Z",
+      "updated_at": "2025-01-01T01:00:00.000000Z"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "file_name": "test-video.mp4",
+      "file_path": "/storage/uploads/test-video.mp4",
+      "service": "deepfake",
+      "status": "processing",
+      "result": null,
+      "created_at": "2025-01-01T02:00:00.000000Z",
+      "updated_at": "2025-01-01T02:00:00.000000Z"
+    },
+    {
+      "id": 4,
+      "user_id": 1,
+      "file_name": "failed-analysis.jpg",
+      "file_path": "/storage/uploads/failed-analysis.jpg",
+      "service": "deepfake",
+      "status": "failed",
+      "result": {
+        "error": "File format not supported",
+        "error_code": "UNSUPPORTED_FORMAT"
+      },
+      "created_at": "2025-01-01T03:00:00.000000Z",
+      "updated_at": "2025-01-01T03:00:00.000000Z"
+    }
+  ],
+  "mockFiles": [
+    {
+      "name": "valid-image.jpg",
+      "type": "image/jpeg",
+      "size": 1024000,
+      "content": "mock-image-content"
+    },
+    {
+      "name": "valid-video.mp4",
+      "type": "video/mp4",
+      "size": 5120000,
+      "content": "mock-video-content"
+    },
+    {
+      "name": "large-file.jpg",
+      "type": "image/jpeg",
+      "size": 15728640,
+      "content": "mock-large-content"
+    },
+    {
+      "name": "unsupported-file.txt",
+      "type": "text/plain",
+      "size": 1024,
+      "content": "This is a text file"
+    }
+  ],
+  "apiResponses": {
+    "uploadSuccess": {
+      "success": true,
+      "message": "File uploaded successfully",
+      "analysis": {
+        "id": 1,
+        "status": "processing",
+        "estimated_time": 30
+      }
+    },
+    "uploadError": {
+      "success": false,
+      "message": "File upload failed",
+      "errors": {
+        "file": ["The file field is required."]
+      }
+    },
+    "analysisComplete": {
+      "success": true,
+      "analysis": {
+        "id": 1,
+        "status": "completed",
+        "result": {
+          "confidence": 0.85,
+          "prediction": "real"
+        }
+      }
+    },
+    "analysisProgress": {
+      "success": true,
+      "analysis": {
+        "id": 1,
+        "status": "processing",
+        "progress": 45,
+        "estimated_time_remaining": 15
+      }
+    }
+  }
+}

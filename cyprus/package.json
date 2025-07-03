@@ -1,0 +1,28 @@
+{
+  "name": "cyprus-deepfake-tests",
+  "version": "1.0.0",
+  "description": "Cypress E2E tests for Deepfake Detection Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "test:basic": "node run-basic-tests.js",
+    "test:simple": "cypress run --spec 'cypress/e2e/frontend/01-basic-navigation.cy.js,cypress/e2e/frontend/02-auth-pages.cy.js'",
+    "test:frontend": "cypress run --spec 'cypress/e2e/frontend/**/*'",
+    "test:api": "cypress run --spec 'cypress/e2e/api/**/*'",
+    "open": "cypress open",
+    "troubleshoot": "node troubleshoot.js"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.2",
+    "@cypress/grep": "^4.0.1"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "testing",
+    "deepfake",
+    "detection"
+  ],
+  "author": "",
+  "license": "ISC"
+}
