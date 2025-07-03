@@ -366,7 +366,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Documentation**: See individual component READMEs
 - **Issues**: GitHub Issues tab
-- **Email**: support@verifake.com (if applicable)
+- **Email**: thetechfinn@gmail.com (if applicable)
 - **Community**: Join our Discord/Slack (if applicable)
 
 ---
@@ -375,7 +375,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for a safer digital world**
 
-[Website](https://verifake.com) • [Documentation](docs/) • [Issues](../../issues) • [Contributing](CONTRIBUTING.md)
+
+• [Issues](../../issues) • [Contributing](CONTRIBUTING.md)
 
 </div>
 - Node.js >=18
