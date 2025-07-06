@@ -336,11 +336,7 @@ We welcome contributions! Please see our contribution guidelines:
 - [📕 Cypress E2E Tests](cyprus/README.md)
 - [📓 Jest Unit Tests](jest/README.md)
 
-### Additional Resources
-- [API Endpoints Documentation](docs/api.md)
-- [Deployment Guide](docs/deployment.md)
-- [Security Guidelines](docs/security.md)
-- [Troubleshooting Guide](docs/troubleshooting.md)
+
 
 ## 🐛 Issue Reporting
 
@@ -366,8 +362,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Documentation**: See individual component READMEs
 - **Issues**: GitHub Issues tab
-- **Email**: thetechfinn@gmail.com (if applicable)
-- **Community**: Join our Discord/Slack (if applicable)
+- **Email**: thetechfinn@gmail.com 
+
 
 ---
 
